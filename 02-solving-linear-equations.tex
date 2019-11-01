@@ -1,1 +1,104 @@
 \chapter{Solving Linear Equations}
+
+We have discussed general methods for solving arbitrary equations. For the most part, we restricted our attention to the one-dimensional case. We also looked at a special class of equations, namely those given by polynomials. Another special class is given by linear equations. Of course, the one-dimensional case is absolutely trivial, so one naturally considers systems of equations. 
+
+I assume that you are familiar with the basic results of linear algebra, such as the diagonalization theorems and Gaussian Elimination. This section provides a very quick review, then discusses Singular Value Decomposition (SVD).
+
+\medskip
+\noindent \textbf{Applications}: Applications for linear equations are numerous. These include, of course, Linear Programming problems. Other are the local solution of non-linear differential equations via linearization, and the determination of minima in least-squares problems. 
+
+\newpage
+
+\section{A quick review of important definitions and facts.}
+
+\begin{enumerate}
+\item Given a linear function $f: \mathbb{R}^n \rightarrow \mathbb{R}^m$ and a pair of bases,
+    \begin{align*}
+        \mathcal{B}_1 &= {e_1,\dots, e_n}\text{ for }\mathbb{R}^n \\
+        \mathcal{B}_2 &= {d_1,\dots, d_m}\text{ for }\mathbb{R}^m
+    \end{align*}
+    we can represent $f$ by an $m\times n$ matrix $A$.
+
+    Notice that the matrix $A$ depends on the choice of bases $\mathcal{B}_1 \times \mathcal{B}_2$.
+    
+    Often we just let $\mathcal{B}_1 \times \mathcal{B}_2$ be the "obvious" bases for $\mathbb{R}^n \times \mathbb{R}^m$.
+    
+    \textbf{Moral:} A matrix is a particular coordinate representation of the linear function $f$.
+    
+\item Given an $m \times n$ matrix $A$, we make the following definitions:
+    \begin{align*}
+        \text{Column space: } & \text{linear combinations of the columns of }A\\
+        \text{Row space: } & \text{linear combinations of the rows of }A
+    \end{align*}
+    If we think of $A$ as defining the linear mapping 
+    \begin{align*}
+        A: &\mathbb{R}^n \rightarrow \mathbb{R}^m \\
+        &
+        \begin{bmatrix} x_1 \\ \vdots \\ x_n \end{bmatrix}
+        \rightarrow
+        \begin{bmatrix} y_1 \\ \vdots \\ y_m \end{bmatrix}
+        =
+        A
+        \begin{bmatrix} x_1 \\ \vdots \\ x_n \end{bmatrix}
+    \end{align*}
+    then the column space of $A$ is a vector subspace of $\mathbb{R}^m$, consisting of all points in $\mathbb{R}^m$ that are image vectors under $A$.
+    
+    Note that the row space of $A$ is just the column space of $A^T$, the transpose of $A$.
+    
+    And we define
+        \begin{align*}
+            \text{null space: } & \text{set of vectors }x\text{ in }\mathbb{R}^n\text{ such that }Ax=0.
+        \end{align*}
+    The following relationships are useful to remember:
+    \begin{itemize}
+        \item $\dim(\text{row space}) = \dim(\text{column space})$, either of which is called the \underline{rank} of $A$,
+        \item The row space and null space are complementary (perpendicular) subspaces of $\mathbb{R}^n$. In other words, 
+        \begin{align*}
+            \mathbb{R}^n &= \text{row space}\oplus\text{null space} \\
+            n &= \dim(\text{row space}) + \dim(\text{null space})
+        \end{align*}
+    \end{itemize}
+    In picture form:
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/linear-1.png}
+        % \caption{Caption}
+        \label{fig:linear-1}
+    \end{figure}
+    
+\item Suppose $A$ is an $m\times n$ matrix, and consider the system of equations 
+    \begin{align*}
+        Ax = b.
+    \end{align*}
+    \begin{itemize}
+        \item If $b$ is not an element of the column space of $A$, then we say that the system is \underline{inconsistent}(or \underline{overdetermined}). 
+        \item If $b$ is in the column space of $A$ and the null space of $A$ is non-trivial, then we say tha tthe system is \underline{underdetermined}. In this case there is a whole family of solutions, given by the affine set
+            $$x_0 + N$$
+        where $x_0$ is any particular solution $Ax_0 = b$, and $N$ is the null space of $A$. 
+        \item If $A$ is a $n\times n$ square matrix we say that $A$ is \underline{singular}
+            \begin{description}
+                \item \quad iff $\det(A) = 0$
+                \item \quad iff $\text{rank}(A) < n$
+                \item \quad iff the rows of $A$ are not linearly independent
+                \item \quad iff the columns of $A$ are not linearly independent
+                \item \quad iff the dimension of the null space of $A$ is non-zero
+                \item \quad iff A is not invertible.
+            \end{description}
+    \end{itemize}
+\end{enumerate}
+
+\newpage
+\section{Quick review of matrix decompositions}
+(we will look at SVD in more detail)
+
+\subsection{Factorizations based on elimination}
+
+\subsection{Factorizations based on eigenvalues}
+
+\subsection{Factorizations based on $A^TA$}
+
+\subsubsection{QR}
+
+\subsubsection{SVD}
+
+\subsection{SVD in more detail}
