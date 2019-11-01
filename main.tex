@@ -1,0 +1,38 @@
+\documentclass{book}
+\usepackage[utf8]{inputenc}
+
+\usepackage{graphicx}  % \includegraphics
+\usepackage{amsmath, amssymb, bm}
+\usepackage{hyperref}
+
+\newcommand{\fig}[1]{Fig.~\ref{#1}}
+\newcommand{\tbl}[1]{Table~\ref{#1}}
+\newcommand{\algo}[1]{Algorithm~\ref{#1}}
+\newcommand{\sect}[1]{Sec.~\ref{#1}}
+
+\title{16-811 Math Fundamentals for Robotics}
+\author{Michael Erdmann}
+
+\begin{document}
+
+\frontmatter
+    \maketitle
+    \tableofcontents
+    
+\mainmatter
+    \input{01-intro.tex}
+    \input{02-solving-linear-equations.tex}
+    \input{03-polynomial-approximation.tex}
+    \input{04-nonlinear-eq-solutions.tex}
+    \input{05-polynomial-roots.tex}
+    \input{06-resultants.tex}
+    \input{07-approximation.tex}
+    \input{08-diffeq.tex}
+    \input{09-optimization.tex}
+    \input{10-calculus-of-variations.tex}
+    \input{11-markov-chains.tex}
+    \input{12-2D-config-space.tex}
+    \input{13-convex-hull.tex}
+    \input{14-2D-voronoi.tex}
+    \input{15-differential-geometry.tex}
+\end{document}
