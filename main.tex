@@ -5,11 +5,45 @@
 \usepackage{amsmath, amssymb, bm}
 \usepackage{hyperref}
 \usepackage{float}
+\usepackage{xcolor}
 
 \newcommand{\fig}[1]{Fig.~\ref{#1}}
 \newcommand{\tbl}[1]{Table~\ref{#1}}
 \newcommand{\algo}[1]{Algorithm~\ref{#1}}
 \newcommand{\sect}[1]{Sec.~\ref{#1}}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+\newtheorem{question}{Question}
+\newtheorem{remark}{remark}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{example}{Example}
+\newtheorem{assumption}{Assumption}
+
+
+\newcount\Comments  % 0 suppresses notes to selves in text
+\Comments=1 % TODO: change to 0 for final version
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{darkred}{rgb}{0.7,0,0}
+\definecolor{teal}{rgb}{0.3,0.8,0.8}
+\definecolor{orange}{rgb}{1.0,0.5,0.0}
+\definecolor{purple}{rgb}{0.8,0.0,0.8}
+\newcommand{\kibitz}[2]{\ifnum\Comments=1{\textcolor{#1}{\textsf{\footnotesize #2}}}\fi}
+\newcommand{\anirudh}[1]{\kibitz{purple}{[AV: #1]}}
+
+
+% mathbb aliases
+\newcommand{\Real}{\mathbb{R}}
+\newcommand{\Expec}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+
+% mathsf aliases
+\newcommand{\projection}{\mathsf{projection}}
+\newcommand{\normal}{\mathcal{N}}
+\newcommand{\dataset}{\mathcal{D}}
+\newcommand{\loss}{\mathcal{L}}
 
 \title{16-811 Math Fundamentals for Robotics}
 \author{Michael Erdmann}
