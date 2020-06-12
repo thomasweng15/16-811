@@ -72,7 +72,7 @@ I assume that you are familiar with the basic results of linear algebra, such as
     \end{align*}
     \begin{itemize}
         \item If $b$ is not an element of the column space of $A$, then we say that the system is \underline{inconsistent}(or \underline{overdetermined}). 
-        \item If $b$ is in the column space of $A$ and the null space of $A$ is non-trivial, then we say tha tthe system is \underline{underdetermined}. In this case there is a whole family of solutions, given by the affine set
+        \item If $b$ is in the column space of $A$ and the null space of $A$ is non-trivial, then we say that the system is \underline{underdetermined}. In this case there is a whole family of solutions, given by the affine set
             $$x_0 + N$$
         where $x_0$ is any particular solution $Ax_0 = b$, and $N$ is the null space of $A$. 
         \item If $A$ is a $n\times n$ square matrix we say that $A$ is \underline{singular}
@@ -93,7 +93,145 @@ I assume that you are familiar with the basic results of linear algebra, such as
 
 \subsection{Factorizations based on elimination}
 
+Given an $m\times n$ matrix $A$ (with $m \geq n = \text{rank}(A)$), we can write $A$ in the form 
+\begin{align*}
+    PA &= LDU
+\end{align*}
+where 
+\begin{description}
+    \item \quad $P$ is an $m\times m$ permutation matrix that specifies row interchanges, 
+    \item \quad $L$ is an $m\times m$ square low-triangular matrix with 1's on the diagonal, 
+    \item \quad $U$ is an $m\times n$ upper-triangular matrix with 1's on the diagonal, and 
+    \item \quad $D$ is an $m\times m$ square diagonal matrix.
+\end{description}
+
+[More generally: we may also need to perform column interchanges on $A$, in which case we get two permutation matrices, so $P_1AP_2 = LDU$.]
+
+Notes:
+\begin{enumerate}
+    \item The entries on the diagonal of $D$ are sometimes called ``pivots" (after the Gaussian Elimination algorithm). 
+    \item The product of the pivots is equal to $\pm\det(A)$ (sign depends on $P$; negative if odd row interchanges), whenever $A$ is a square matrix.
+    \item If $A$ is symmetric and $P=I$, then $U=L^T$.
+    \item If $A$ is symmetric positive-definite, then $U=L^T$ and the diagonal entries of $D$ are strictly positive.
+\end{enumerate}
+
+\underline{Ex}
+\begin{enumerate}[label=(a)]
+\item 
+    \begin{align*}
+        \begin{bmatrix}
+            1 & 0 \\
+            1 & 1 \\
+            0 & -1
+        \end{bmatrix}
+        &=
+        \begin{bmatrix}
+            1 & 0 & 0 \\
+            1 & 1 & 0 \\
+            0 & -1 & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            1 & 0 & 0 \\
+            0 & 1 & 0 \\
+            0 & 0 & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            1 & 0 \\
+            0 & 1 \\
+            0 & 0
+        \end{bmatrix}
+    \end{align*}
+    
+    Note: can use any value in the last entry of $D$. Use $0$ if we want $\text{rank}(D) = \text{rank}(A)$.
+    
+    [If $m > n$, as in this example, then the last $m-n$ rows of $U$ are zero.]
+
+\item
+        \begin{align*}
+        \begin{bmatrix}
+            1 & 1 & 0 \\
+            2 & 1 & -1 \\
+        \end{bmatrix}
+        &=
+        \begin{bmatrix}
+            1 & 0 \\
+            2 & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            1 & 0 \\
+            0 & -1 
+        \end{bmatrix}
+        \begin{bmatrix}
+            1 & 1 & 0 \\
+            0 & 1 & 1
+        \end{bmatrix}
+    \end{align*}
+\end{enumerate}
+
+\noindent \underline{Algorithm:} Gaussian Elimination directly yields this decomposition.
+
+\medskip
+
+\noindent \underline{Application:} As with most decompositions/factorizations, the hope is to simplify solving the system $Ax=b$. 
+
+Suppose $A$ is square and non-singular. THen solving $Ax=b$ really means solving 
+\begin{align*}
+    LDUx &= Pb.
+\end{align*}
+In turn this entails solving two simpler problems: 
+\begin{align*}
+    &\text{(i) } Ly = Pb & \text{(solve for $y$)} \\
+    &\text{(ii) } Ux = D^{-1}y & \text{(solve for $x$)}
+\end{align*}
+Each of these problems can be solved easily using forward or back substitution ($D^{-1}$ is easy to compute since $0$ is diagonal with non-zero entries).
+
 \subsection{Factorizations based on eigenvalues}
+
+These are the standard factorization s one learns in a linear algebra course. Two important ones are:
+
+\begin{enumerate}
+\item If $A$ is a square $n\times n$ matrix with $n$ linearly independent eigenvectors, then
+    \begin{align*}
+        A &= S\Lambda S^{-1},
+    \end{align*}
+    where $\Lambda$ is a diagonal matrix whose entries are the eigenvalues of $A$,
+    
+    \medskip
+    
+    and $S$ is a matrix whose columns are the eigenvectors of $A$.
+    
+    \medskip
+    
+    This factorization is not always possible. (One case in which it is possible ofccurs when $A$ has $n$ distinct eigenvalues.)
+
+\item One can always decompose $A$ in Jordan form, i.e.,
+    \begin{align*}
+        A &= MJM^{-1}
+    \end{align*}
+    where $J = 
+    \begin{bmatrix}
+        J_1 & \dots & 0 \\
+        \vdots & \ddots & \vdots \\
+        0 & \dots & J_s
+    \end{bmatrix}
+    $ is a block matrix, such that each block \newline
+    $J_i = 
+    \begin{bmatrix}
+        \lambda_i^1 & \dots & 0 \\
+        \vdots & \ddots & \vdots \\
+        0 & \dots & \lambda_i^s
+    \end{bmatrix}
+    $ with $\lambda_i$ an eigenvalue of $A$.
+
+    \medskip
+    
+    Here $s$ is the number of independent eigenvectors of $A$. $M$ consists of eigenvectors and ``generalized" eigenvectors.
+
+    \medskip
+    
+    [Side note: ]
+
+\end{enumerate}
 
 \subsection{Factorizations based on $A^TA$}
 

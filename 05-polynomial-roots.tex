@@ -1,2 +1,34 @@
 \chapter{Roots of Polynomials}
 
+So far we have looked at methods for finding roots of arbitrary functions. Now let us specialize these into polynomials. \newline
+
+\noindent \emph{Applications}: Why polynomials?
+\begin{itemize}
+    \item We already saw the use of polynomials in approximation/interpolation. Finding their roots is a natural next step (we might have an approximate representation of a function whose roots we need, say, to ensure safety of a trajectory).
+    \item Systems of multivariate polynomial equations have seen much attention recently, particularly in motion planning, and to some extent in grasping and in machine vision. ``Exact'' algebraic solution (i.e., root bracketing) are used to find roots. (c.f. Canny, Theory of the reals, etc.)
+\end{itemize}
+
+\hline 
+
+\vspace{1em}
+
+\noindent We will only look at polynomials in one variable. \\
+(Side note: Often, the solution of multi-variate polynomials is transformed into a problem requiring the solution of a single-variate polynomial.) \\
+
+\noindent Reminder: 
+\begin{itemize}
+    \item Closed-form formulas exist for finding the roots of polynomials of degree 1, 2, 3, and 4.
+    \item It is impossible to have a general formula for $\geq$ 5.
+    \item Even degree 3 and 4 are somewhat unstable numerically.
+\end{itemize}
+
+\noindent Some facts: \\
+Suppose  we write a polynomial of degree $n$ as
+$$p(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0\text{, with }a_n \neq 0$$
+
+\begin{enumerate}
+    \item $p$ has $n$ real or complex roots, counting multiplicities. \\
+    \item If the coefficients $\{ a_i \}$ are all real, then the complex roots occur in conjugate pairs.
+    \item Descartes' 
+\end{enumerate}
+
