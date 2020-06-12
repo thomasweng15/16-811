@@ -1,9 +1,9 @@
 \chapter{Markov Chains}
-\section{Basic definitions}
 Let's first recall the definition of independent trials.
-
+\begin{definition}[Independent trials]
 A set of possible outcomes $E_1,E_2,...$ is given. With each outcome $E_k$ there is associated a probability $p_k$. The probability of a sampled sequence is defined as
 $$ P\{(E_{j_0},E_{j_1},...,E_{j_k})\} = p_{j_0} p_{j_1} \hdots p_{j_k}$$
+\end{definition}
 
 \medskip
 \noindent In the theory of Markov Chains the outcome of any trial depends on the outcome of the directly preceding trial only. 
@@ -30,3 +30,23 @@ we have $P_{j,k} = 0$ if $ | j - k | > 1$. For a symmetric random walk we might 
 $ P_{j, k} = \frac{1}{2}$ if $|j - k| = 1$
 Graphically we would draw arrows with labelled probabilities. It is often a good way to think of a random walk as a markov chain as follows: 
 
+\akash{Small figure here}
+
+\begin{definition}
+A sequence of trials with possible outcomes $E_1, E_2, \dots$ is called a Markov chain if the probabilities of sample sequeces are defined by: 
+$$ P(E_{j_0}, E_{j_1}, \dots , E_{j_n}) = a_{j_0}p_{j_0, j_1} \dots p_{j_{n-1} j_n}$$ in terms of a probability distribution $\{a_k\}$ for $E_k$ at the initial (or zero-th) trial and fixed conditional probabilities $p_{j, k}$ of $E_k$ given that $E_j$ has occured in the preceding trial.
+\end{definition}
+where: $E_k$ = states of the system, $a_k$ = the probabilities of E_k at the initial trial $P_{j, k}$ the probabilities of the transition from $E_j$ to $E_k$
+
+Furthermore, the matrix (finite or infinite) of transition probabilites: 
+\begin{align*}
+    \mathbf{P} = \begin{bmatrix} 
+                    P_{11} & P_{12} & P_{13} & \dots \\
+                    P_{21} & P_{22} & P_{23} & \dots \\
+                    P_{31} & P_{32} & P_{33} & \dots \\
+                    \vdots & \vdots & \vdots & \ddots \\
+                \end{bmatrix}
+\end{align*}
+is a square matrix with non-negative elements and unit row sums. Such a matrix is called a \underline{Stochastic Matrix}.
+
+Any stochastic matrix 
