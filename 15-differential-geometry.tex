@@ -35,12 +35,109 @@ space $T_p$ at $p$.
   \anirudh{Example figure here}
 \end{example}
 
-\textbf{Vector field} A function $M \rightarrow T(M)$ where $M$ is the
+\begin{definition}[Vector Field]
+A function $M \rightarrow T(M)$ where $M$ is the
 underlying space, often called a \textit{manifold} (e.g. $\Real^n$,
 $\Sphere^n$, even matrix groups e.g. SO(n)), and $T(M)$ is the tangent
 bundle. For a point $p$ it defines a mapping $p \rightarrow v_p \in
 T_p$ often denoted by $V(p)$ or $V_p$ (We generally require $V$ to be
-smooth, meaning as many derivatives as we need.)
+smooth, meaning as many derivatives as we need.)  
+\end{definition}
 
 One classic question is whether a manifold has a continuously varying
-vector field that is never zero. 
+vector field that is never zero.
+
+We just drew one for $M = \Sphere^1$. It is impossible for $M =
+\Sphere^2$ (of course there is a 2D tangent space $T_p$ for each $p
+\in \Sphere^2$, but we can't find a function $V: \Sphere^2 \rightarrow
+T(\Sphere^2)$ that is nonvanishing and continuous. Proof is beyond
+these lectures; it entails studying antipoal maps and fixed point
+theorems.)
+
+When we have one manifold embedded in another we can ask whether it is
+possible to find smooth \underline{unit normal vector fields}
+(assuming we have defined an inner product). For example, for the
+circle in the plane it is possible for orientable submanifolds (this
+leads to ideas like the Gauss map and Gaussian curvature.)
+\anirudh{Example figure here}
+
+\section{Geometry of Curves in $\Real^3$}
+\label{sec:geom-curv-real3}
+
+We will consider parameterized curves and we will assume that they are
+sufficiently smooth to give us as many derivatives as we need
+(e.g. $\continuous^3$)
+
+\begin{definition}[Curve]
+  A curve is a smooth function $\alpha: I \rightarrow \Real^3$, with $I$
+some interval in $\Real^1$. We often write $\alpha(t) = (\alpha_1(t),
+\alpha_2(t), \alpha_3(t))$.
+\end{definition}
+
+\begin{definition}[Velocity Vector]
+  The velocity vector of $\alpha$ at time $t$ is the tangent vector of
+  $\Real^3$ given by $\alpha'(t) = (\alpha_1'(t), \alpha_2'(t),
+  \alpha_3'(t))$. 
+\end{definition}
+
+\begin{definition}[Speed]
+  The speed of $\alpha$ at time $t$ is $v(t) = \|\alpha'(t)\|$
+\end{definition}
+
+\begin{definition}[Arclength traversed]
+  The arclength traversed between time $t_0$ and time $t_1$ is
+  \begin{equation*}
+    \int_{t_0}^{t_1} v(t) dt
+  \end{equation*}
+\end{definition}
+
+\begin{theorem}
+  Suppose $\alpha: [a, b] \rightarrow \Real^3$ is a curve for which
+  $\alpha'(t)$ is not ever $0$ on $[a, b]$. Then one can
+  reparameterize $\alpha(t)$ as $\beta(s)$ with $s$ measuring
+  arclength. Note that $\beta$ gives a unit-speed parameterization of
+  the curve. (So $\beta(s) = \alpha(t(s))$ where $t(s)$ is the time at
+  which the curve $\alpha$ would have reached traversed arclength $s$)
+\end{theorem}
+\begin{proof}
+  Define $s(t) = \int_{a}^t \|\alpha'(u)\| du$, for $t \in [a,
+  b]$. Then $s'(t) = \|\alpha'(t)\| > 0$. So $s(t)$ is strictly
+  monotone, meaning the inverse $t(s)$ exists (not always easy to
+  calculate, of course.)
+
+Let $\beta(s) = \alpha(t(s))$, $s \in [0, s(b)]$
+
+Note that
+\begin{align*}
+  \beta'(s) &= \frac{d}{ds} \alpha(t(s)) \\
+&= \alpha'(t(s)) \frac{dt}{ds}(s)
+\end{align*}
+So $\|\beta'(s)\| = \|\alpha'(t(s))\| \frac{dt}{ds}(s)$ since
+$\frac{ds}{dt} > 0$, $\frac{dt}{ds} > 0$.
+Thus, $\|\beta'(s)\| =
+\frac{ds}{dt}(t(s)) \frac{dt}{ds}(s) = 1$.
+
+\end{proof}
+
+\begin{example}[A helix in $\Real^3$]
+  $\alpha(t) = (r\cos t, r\sin t, qt)$, $r > 0$, $q \neq 0$ where
+  $(r\cos t, r\sin t)$ is the circular part, $qt$ is the rise/fall,
+  and $t \in [0, \infty]$ for simplicity (but could use any interval
+  of course, including $[-\infty, \infty]$ but the might also want
+  arclength to go from $-\infty$ to $\infty$; just break into two
+  parts joined at $t = 0$/$s = 0$)
+  \anirudh{helix figure here}
+  \begin{align*}
+    \alpha'(t) &= (r\sin t, r\cos t, q) \\
+    v(t) &= \sqrt{r^2 + q^2} = c \\
+    s(t) &= \int_0^t c du = ct
+  \end{align*}
+  where $c$ is the constant speed. Thus $t(s) = \frac{s}{c}$. So we
+  can reparameterize as
+  \begin{align*}
+    \beta(s) = \alpha(\frac{s}{c}) = (r\cos \frac{s}{c}, r\sin
+    \frac{s}{c}, \frac{qs}{c})
+  \end{align*}
+  Now we have a unit speed curve giving the same shape (Not usually so
+  easy to reparameterize this way.)
+\end{example}
