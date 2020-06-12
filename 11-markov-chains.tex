@@ -1,1 +1,24 @@
 \chapter{Markov Chains}
+\section{Basic definitions}
+Let's first recall the definition of independent trials.
+
+A set of possible outcomes $E_1,E_2,...$ is given. With each outcome $E_k$ there is associated a probability $p_k$. The probability of a sampled sequence is defined as
+$$ P\{(E_{j_0},E_{j_1},...,E_{j_k})\} = p_{j_0} p_{j_1} \hdots p_{j_k}$$
+
+\medskip
+\noindent In the theory of Markov Chains the outcome of any trial depends on the outcome of the directly preceding trial only. 
+
+\medskip
+\noindent \textbf{Conditional probability}
+\begin{itemize}
+    \item $p_{jk}$: given that $E_j$ has occurred at some trial the probability of $E_k$ at the next trial.
+    \item $a_k$ : probability of $E_k$ at the initial trial 
+\end{itemize}
+For instance here are the prob. of some sample sequences.
+\begin{align*}
+    &P\{(E_j,E_k)\} = a_j p_{jk}\\
+    &P\{(E_j,E_k,E_r) \} = a_j p_{jk} p_{kr}\\
+    \textrm{(and generally) }& P\{(E_{j_0},E_{j_1},...,E_{j_n})\} = a_{j_0} p_{j_0 j_1} p_{j_1 j_2} \hdots p_{j_{n-1} j_n}
+\end{align*}
+
+\section{Random Walk}
