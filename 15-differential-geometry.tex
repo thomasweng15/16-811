@@ -8,14 +8,39 @@
 Differential geometry studies the motions possible in a space. Some
 key concepts:
 
-\textbf{Tangent vector $v_p$}: A vector anchored at a particular
+\begin{definition}[Tangent Vector $v_p$]
+  A vector anchored at a particular
 point $p$. Set of all possible $v_p$ for a given $p$ is called the tangent
 space $T_p$ at $p$.
+\end{definition}
 
 \anirudh{Small figure here}
 
-\textbf{Tangent Bundle}: A space along with all its tangent vectors.
+\begin{definition}[Tangent Bundle]
+  A space along with all its tangent vectors.
+\end{definition}
+
 
 \begin{example}
-  If 
+  If $\Real^n$ is the underlying space then we have another $\Real^n$
+  at each point $p \in \Real^n$ consisting of all the tangent vectors
+  anchored at $p$. So we get $\Real^n \times \Real^n$ over all, just
+  like a state space. For $n = 2$:
+  \anirudh{Example figure here}
 \end{example}
+
+\begin{example}
+  The tangent bundle associated with a circle looks like
+  $\Sphere^1 \times \Real^1$:
+  \anirudh{Example figure here}
+\end{example}
+
+\textbf{Vector field} A function $M \rightarrow T(M)$ where $M$ is the
+underlying space, often called a \textit{manifold} (e.g. $\Real^n$,
+$\Sphere^n$, even matrix groups e.g. SO(n)), and $T(M)$ is the tangent
+bundle. For a point $p$ it defines a mapping $p \rightarrow v_p \in
+T_p$ often denoted by $V(p)$ or $V_p$ (We generally require $V$ to be
+smooth, meaning as many derivatives as we need.)
+
+One classic question is whether a manifold has a continuously varying
+vector field that is never zero. 
