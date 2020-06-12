@@ -21,3 +21,56 @@ And in the next section of notes we will consider optimization of functionals, t
 
 We will now become increasingly more analytical and less numerical.
 You should also put on your geometric thinking caps, since much of the analysis is best understood in terms of geometry.
+
+The basic problem: Given a function of $n$ variables
+\begin{align}
+  f: \mathbb{R}^n \rightarrow \mathbb{R}
+\end{align}
+we would like to find its minimum (or maximum), if it exists.
+In many cases it is difficult to find a global minimum, so we will often settle for local minima.
+
+Recall how this process works in one dimension ($n = 1$).
+
+We have a function $f: \mathbb{R} \rightarrow \mathbb{R}$. First we might compute the critical set of $f$,
+\begin{align}
+  C_f = \{ x \mid f'(x) = 0 \}
+\end{align}
+By examining this set we can determine those $x$ that are global minima.
+
+Notice that computation of $C_f$ seems to entail finding the zeros of a function, namely the zeros of $f$.
+In other words, we have reduced the optimization problem to the root-finding problem.
+So, I guess we are done.
+Well, not quite.
+In higher dimensions, it is often easier to find (local) minima than one would think, based on our experience in finding simultaneous zeros in higher dimensions.
+Intuitively, this is because $f'$ is not an arbitrary function, but rather a derivative.
+
+We will thus have a lot more to say about optimization in higher dimensions than we did about root-finding.
+
+\section{Golden Section Search (analogy to bisection)}
+
+\underline{Basic idea}: Want to bracket a minimum, then shrink the bracket.
+
+The problem is that we don't know the value of the function at the minimum, so we can't know whether we have bracketed a minimum.
+Fortunately, if we are willing to settle for a local minimum, then we really just want to bracket a zero of $f'$.
+That we can do, by a numerical approximation to the derivative of $f$.
+The inner part of the loop works as follows.
+
+We have three points $a$, $b$, $c$ such that $a < b < c$ and
+\begin{align}
+  f(b) < \min \{ f(a),\,\,f(c)\}
+\end{align}
+E.g.
+\alex{Example figure here}
+
+Now choose a point $x$, say halfway between $a$ and $b$.
+
+If $f(x) > f(b)$, then the new bracketing triple becomes $[x, b, c]$.
+
+If $f(x) < f(b)$, then the new bracketing triple becomes $[a, x, b]$.
+
+See Numerical Recipes in C (NRiC) pg. 294 for wise words regarding limitations on how small you can make the bracketing interval.
+And see the rest of NRiC for other methods, e.g. Parabolic Interpolation.
+
+\section{Now, let's turn to the $n$-dimensional case}
+
+First, recall the following conditions for a relative (local) minimum.
