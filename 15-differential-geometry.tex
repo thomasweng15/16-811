@@ -141,3 +141,32 @@ Thus, $\|\beta'(s)\| =
   Now we have a unit speed curve giving the same shape (Not usually so
   easy to reparameterize this way.)
 \end{example}
+
+\underline{\textbf{Observe:}} Suppose we have a curve $\alpha: I
+\rightarrow \Real^3$ and a smooth in $t$ function that assigns to each
+point $\alpha(t)$ a vector $V(t)$ of $\Real^3$ ($V(t)$ need not be
+tangent to $\alpha(t)$, merely a tangent vector of $\Real^3$.)
+Differentiating $V(t)$ allows us to obtain information about
+$\alpha$.
+
+Let's first look at a unit-speed curve $\beta: I \rightarrow \Real^3$
+(so $\beta(s)$ is a parameterization in terms of arclength $s$.)
+Define the following three vector fields on $\beta$: $T = \beta'$
+called the \textit{unit tangent vector field} of $\beta$, $N =
+\frac{T'}{\|T'\|}$ called the \textit{principal normal vector
+  field} of $\beta$, and $B = T \times N$ called the
+\textit{binomial vector field} of $\beta$.
+The quantity $\kappa(s) = \|T'(s)\|$ also has a name,
+\textit{curvature function} of $\beta$.
+
+
+\underline{\textbf{Note:}} Since $\beta$ is unit-speed, $T$ is a unit
+vector. It could be that $T' = 0$, in which case $N * B$ are not
+well-defined. This occurs for instance when $\beta$ is a straight
+line, or when it is instantaneously linear. So, let's assume $\kappa >
+0$ over the entire curve segment $I$ that we are considering.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:
