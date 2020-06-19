@@ -39,7 +39,7 @@ Graphically we would draw arrows with labelled probabilities. It is often a good
 A sequence of trials with possible outcomes $E_1, E_2, \dots$ is called a Markov chain if the probabilities of sample sequeces are defined by: 
 $$ P(E_{j_0}, E_{j_1}, \dots , E_{j_n}) = a_{j_0}p_{j_0, j_1} \dots p_{j_{n-1} j_n}$$ in terms of a probability distribution $\{a_k\}$ for $E_k$ at the initial (or zero-th) trial and fixed conditional probabilities $p_{j, k}$ of $E_k$ given that $E_j$ has occured in the preceding trial.
 \end{definition}
-where: $E_k$ = states of the system, $a_k$ = the probabilities of E_k at the initial trial $P_{j, k}$ the probabilities of the transition from $E_j$ to $E_k$
+where: $E_k$ = states of the system, $a_k$ = the probabilities of $E_k$ at the initial trial $P_{j, k}$ the probabilities of the transition from $E_j$ to $E_k$
 
 Furthermore, the matrix (finite or infinite) of transition probabilites: 
 \begin{align*}
@@ -53,3 +53,29 @@ Furthermore, the matrix (finite or infinite) of transition probabilites:
 is a square matrix with non-negative elements and unit row sums. Such a matrix is called a \underline{Stochastic Matrix}.
 
 Any stochastic matrix with initial distribution $\{a_k\}$ completely defines a markov chain with states $E_1, E_2, \dots$
+
+\begin{example}
+There are only two possible states $E_1$ and $E_2$. The matrix of transition probabilities is: 
+\begin{align}
+    \mathbf{P} = \begin{bmatrix} 
+                 1 - p & p \\
+                 \alpha & 1 - \alpha \\
+                 \end{bmatrix}
+\end{align}
+or in graphical form: 
+\akash{Add short figure}
+\end{example}
+
+\begin{remark}
+This chain could be realized by the following notion of a particle moving along the x-axis. 
+It's absolute speed remains constant but the direction of the motion can be reversed. 
+The system is in state $E_1$, if the particle moves in the positive direction and in state $E_2$ if the motion is to the left.
+Then $p$ is the probability of a reversal when the particle moves to the right and $\alpha$ is the probability of the reversal when the particle moves to the left.
+\end{remark}
+
+\begin{example}[Random walks with Absorbing barriers]
+Possible states: $E_0, E_1, \dots E_n$
+\akash{Add short figure}
+
+
+\end{example}
