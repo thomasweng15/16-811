@@ -61,7 +61,7 @@ $2n$ adds; $n$ multiplies. \\
 
 \qquad \qquad $a_0 + (x-c_1)\cdot $\textsf{poly\_eval}($x$; $a_1, \dots, a_n$; $c_2, \dots, c_n$)
 
-\section{Interpolation}
+\section{Polynomial Interpolation}
 
 Suppose $f: [a,b] \rightarrow \mathbb{R}$ \\
 
@@ -86,6 +86,8 @@ Therefore, by the Fundamental Theorem of Algebra
 where $c$ is some real number. The left hand side has degree at most $n$. The right hand side has degree exactly $n+1$, unless $c=0$. So, $c=0$, and then $p=q$, meaning that $p$ is unique. \\
 
 \noindent Uniqueness tells us that the different ways of writing the interpolating polynomial $p(x)$ are really the same, and must therefore differ primarily on numerical grounds (e.g. compactness, stability, ...). \\
+
+\subsection{Lagrange Form}
 
 \noindent The \underline{Lagrange Form} is a straightforward way of constructing the interpolating polynomial:
 
@@ -137,4 +139,6 @@ so $p(x) = -x + 1$, which is a line. \\
 \end{figure}
 So, let's add the value of $f$ at a third point, say $x=-1$. 
 
-% On page 8 of notes
+\subsection{Divided Differences}
+
+\subsection{Error of the interpolating polynomial}
