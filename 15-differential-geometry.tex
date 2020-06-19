@@ -1,5 +1,7 @@
 \chapter{Differential Geometry: Frenet Frames and Surface Curvature}
 
+Worked on by Anirudh and subsequently ditched. Feel free to take this up.
+
 \begin{remark}
   Material largely adopted from ``Elementary Differential Geometry''
   by B. O'Neill
@@ -198,8 +200,26 @@ This type of analysis gives us more information:
   by construction. However, $B \cdot N = 0$ by construction, so in
   fact $B' \cdot T = 0$. 
 That means, since $[T, N, B]$ is an orthogonal frame, that $B'$ must
-be a scalar multiple of $N$. One 
+be a scalar multiple of $N$. One writes $B' = -\tau N$ with $\tau$ a
+real-valued function on $\beta$, called the \textit{torsion} of
+$\beta$.
+\item Finally, we know that $N \cdot T = 0$, $N \cdot N = 1$ and $N
+  \cdot B = 0$. So, $N' \cdot T + N \cdot T' = 0$ implies $N' \cdot T
+ = -N \cdot T' = -N \cdot (\kappa N) = -\kappa$ (since $N \cdot N =
+ 1$). We also have from $N \cdot N = 1$ that $2 N' \cdot N = 0$ which
+ implies $N' \cdot N = 0$. Similarly, from $N \cdot B = 0$ we have $N'
+ \cdot B + N \cdot B' = 0$ which implies $N' \cdot B = -N \cdot B' =
+ -N \cdot (-\tau N) = \tau$. So, we have $N' \cdot T = -\kappa$, $N'
+ \cdot N = 0$ and $N' \cdot B = \tau$.
 \end{itemize}
+
+We have just established the Frenet formulas
+\begin{theorem}
+  If $\beta: I \rightarrow \Real^3$ is a unit-speed curve with
+  curvature $\kappa  > 0$ and torsion $\tau$, then:
+  \anirudh{wtf is this? Couldn't understand the notes anymore. Leaving
+  the rest for someone more intelligent to make sense}
+\end{theorem}
 
 %%% Local Variables:
 %%% mode: latex
