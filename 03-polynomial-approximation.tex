@@ -10,12 +10,12 @@ $$
 $$
 \end{theorem}
 
-\noindent Of course, this theorem doesn't tell us how to construct $p(x)$, or even what the degree of $p(x)$ is. \\
+Of course, this theorem doesn't tell us how to construct $p(x)$, or even what the degree of $p(x)$ is. \\
 
-\noindent We will look at the construction of interpolating polynomials, at error estimates, and some difficulties.
-In practice, one patches together series of low-order polynomial approximations, such as in splines and Bezier patches. \\
+We will look at the construction of interpolating polynomials, at error estimates, and some difficulties.
+In practice, one patches together series of low-order polynomial approximations, such as in splines and Bezier patches.
 
-\noindent \underline{Possible applications}
+\subsection*{Applications}
 \begin{itemize}
     \item Modeling scenes with sparse data.
     \item CAD representations.
@@ -31,14 +31,14 @@ p(x) = a_0 + a_1 x + a_2 x^2 + \dots + a_n x^n
 $$
 where $a_n \neq 0$ and the polynomial is degree $n$. Numerical round-off can lead to a loss of significance for $x$ no near zero. \\
 
-\noindent \textbf{Shifted power form:}
+\textbf{Shifted power form:}
 $$
 p(x) = a_0 + a_1 (x-c) + a_2 (x-c)^2 + \dots + a_n(x-c)^n
 $$
 
-\noindent Taylor expansion for $p(x)$ about $c$ and $a_i = \frac{p^{(i)}(c)}{i!}$
+Taylor expansion for $p(x)$ about $c$ and $a_i = \frac{p^{(i)}(c)}{i!}$
 
-\noindent \textbf{Newton form:}
+\textbf{Newton form:}
 \begin{align}
 p(x) = a_0 &+ a_1 (x-c_1) \\
            &+ a_2 (x-c_1)(x-c_2) \\
@@ -49,13 +49,13 @@ p(x) = a_0 &+ a_1 (x-c_1) \\
 \end{align}
 $n+\frac{n(n+1)}{2}$ adds; $\frac{n(n+1)}{2}$ multiplies.
 
-\noindent \textbf{Nested Newton form:}
+\textbf{Nested Newton form:}
 $$
 p(x) = a_0 + (x-c_1)\left\{a_1 + (x-c_2)\left[a_2 + \dots + (x-c_{n-1})(a_{n-1}+(x-c_n)a_n)\right]\right\}
 $$
 $2n$ adds; $n$ multiplies. \\
 
-\noindent It is easy to write a recursive algorithm to evaluate $p(x)$ in nested Newton form. To evaluate $p(x)$ given $x$, $a_0, \dots, a_n$, $c_1, \dots, c_n$: \\
+It is easy to write a recursive algorithm to evaluate $p(x)$ in nested Newton form. To evaluate $p(x)$ given $x$, $a_0, \dots, a_n$, $c_1, \dots, c_n$: \\
 
 \quad \textsf{poly\_eval}($x$; $a_0, \dots, a_n$; $c_1, \dots, c_n$)
 
@@ -65,7 +65,7 @@ $2n$ adds; $n$ multiplies. \\
 
 Suppose $f: [a,b] \rightarrow \mathbb{R}$ \\
 
-\noindent And suppose $x_0, x_1, \dots , x_n$ are $n+1$ distinct points in $[a,b]$. \\
+And suppose $x_0, x_1, \dots , x_n$ are $n+1$ distinct points in $[a,b]$. \\
 
 \noindent We want to construct a polynomial of degree $n$ or less that interpolates $f(x)$ at the points $\{x_i\}$. 
 That is, we want a polynomial $p(x)$ such at
@@ -76,7 +76,7 @@ That is, we want a polynomial $p(x)$ such at
 
 There exists a unique such polynomial. We will see it shortly. \\
 
-\noindent To see uniqueness, suppose $p$ and $q$ are each polynomials of degree at most $n$ that agree at the $\{x_i\}$. 
+To see uniqueness, suppose $p$ and $q$ are each polynomials of degree at most $n$ that agree at the $\{x_i\}$. 
 Then $p-q$ is a polynomial of degree at most $n$ that vanishes at the $\{x_i\}$. 
 Therefore, by the Fundamental Theorem of Algebra
 
@@ -85,11 +85,11 @@ Therefore, by the Fundamental Theorem of Algebra
 \end{equation*}
 where $c$ is some real number. The left hand side has degree at most $n$. The right hand side has degree exactly $n+1$, unless $c=0$. So, $c=0$, and then $p=q$, meaning that $p$ is unique. \\
 
-\noindent Uniqueness tells us that the different ways of writing the interpolating polynomial $p(x)$ are really the same, and must therefore differ primarily on numerical grounds (e.g. compactness, stability, ...). \\
+Uniqueness tells us that the different ways of writing the interpolating polynomial $p(x)$ are really the same, and must therefore differ primarily on numerical grounds (e.g. compactness, stability, ...). \\
 
 \subsection{Lagrange Form}
 
-\noindent The \underline{Lagrange Form} is a straightforward way of constructing the interpolating polynomial:
+The \underline{Lagrange Form} is a straightforward way of constructing the interpolating polynomial:
 
 \begin{equation*}
     p(x) = a_0 l_0 (x) + a_1 l_1 (x) + \dots + a_n l_n (x)
@@ -103,12 +103,12 @@ where each $l_i(x)$ is a polynomial of degree $n$ that satisfies
 \end{equation*}
 $i=0,\dots,n$ and $a_i=f(x_i)$. \\
 
-\noindent In other words,
+In other words,
 \begin{equation*}
     l_i(x) = \prod_{\substack{k=0 \\ k\neq i}}^n \frac{x-x_k}{x_i-x_k}
 \end{equation*}
 
-\noindent \underline{Ex} Suppose we start with a polynomial, say 
+\underline{Ex} Suppose we start with a polynomial, say 
 \begin{equation*}
     f(x) = (x-1)^2
 \end{equation*}
@@ -122,14 +122,14 @@ And suppose we have two values, at $x_0=0$ and $x_1 = 1$:
 \end{equation*}
 Now $p(x) = a_0 l_0 (x) + a_1 l_1 (x)$ \\
 
-\noindent Since $a_1 = 0$, we only care about $l_0(x)$.
+Since $a_1 = 0$, we only care about $l_0(x)$.
 
 \begin{equation*}
     l_0 (x) = \frac{x-x_1}{x_0-x_1} = \frac{x-1}{0-1} = -x + 1
 \end{equation*}
 so $p(x) = -x + 1$, which is a line. \\
 
-\noindent This polynomial interpolates $f(x)$, but not very well, as one would imagine.
+This polynomial interpolates $f(x)$, but not very well, as one would imagine.
 
 \begin{figure}[H]
     \centering
