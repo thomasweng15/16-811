@@ -37,7 +37,7 @@ Graphically we would draw arrows with labelled probabilities. It is often a good
 
 \begin{definition}
 A sequence of trials with possible outcomes $E_1, E_2, \dots$ is called a Markov chain if the probabilities of sample sequeces are defined by: 
-$$ P(E_{j_0}, E_{j_1}, \dots , E_{j_n}) = a_{j_0}p_{j_0, j_1} \dots p_{j_{n-1} j_n}$$ in terms of a probability distribution $\{a_k\}$ for $E_k$ at the initial (or zero-th) trial and fixed conditional probabilities $p_{j, k}$ of $E_k$ given that $E_j$ has occured in the preceding trial.
+$ P(E_{j_0}, E_{j_1}, \dots , E_{j_n}) = a_{j_0}p_{j_0, j_1} \dots p_{j_{n-1} j_n}$ in terms of a probability distribution $\{a_k\}$ for $E_k$ at the initial (or zero-th) trial and fixed conditional probabilities $p_{j, k}$ of $E_k$ given that $E_j$ has occured in the preceding trial.
 \end{definition}
 where: $E_k$ = states of the system, $a_k$ = the probabilities of E_k at the initial trial $P_{j, k}$ the probabilities of the transition from $E_j$ to $E_k$
 
@@ -53,3 +53,8 @@ Furthermore, the matrix (finite or infinite) of transition probabilites:
 is a square matrix with non-negative elements and unit row sums. Such a matrix is called a \underline{Stochastic Matrix}.
 
 Any stochastic matrix with initial distribution $\{a_k\}$ completely defines a markov chain with states $E_1, E_2, \dots$
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:
