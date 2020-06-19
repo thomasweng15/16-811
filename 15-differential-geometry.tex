@@ -166,6 +166,41 @@ well-defined. This occurs for instance when $\beta$ is a straight
 line, or when it is instantaneously linear. So, let's assume $\kappa >
 0$ over the entire curve segment $I$ that we are considering.
 
+\begin{theorem}
+  Let $\beta: I \rightarrow \Real^3$ be a unit-speed curve with
+  non-zero curvature (i.e. $\kappa > 0$) for all $s \in I$. Then $[T,
+  N, B]$ is an orthonormal set for all $s \in I$.
+\end{theorem}
+\begin{definition}[Frenet frame field]
+  $[T, N, B]$ is called the \textit{frenet frame field} of $\beta$.
+\end{definition}
+\begin{proof}
+$T, N, B$ are all well-defined since the curvature is nonzero. They
+all have unit length by construction. Moreover, $B$ is orthogonal to
+$T$ and $N$ by construction. So we need only show that $T$ and $N$ are
+orthogonal. Observe
+\begin{align*}
+  T \cdot T &= 1 \\
+  \implies \frac{d}{ds} (T \cdot T) &= 0 \\
+  \implies 2T' \cdot T = 0
+\end{align*}
+telling us that $T'$ and $T$ are orthogonal, since $T' \neq 0$ by the
+curvature assumption. That means $N$ and $T$ are orthogonal. (And of
+course, $B$ is orthogonal to both $T$ and $N$, and all three vectors,
+$T, N, B$ have unit length.)
+\end{proof}
+
+This type of analysis gives us more information:
+\begin{itemize}
+\item Since $B \cdot B = 1$ , we also see that $B' \cdot B = 0$. Since
+  $B \cdot T = 0$, we see that $B' \cdot T + B \cdot T' = 0$. So, $B'
+  \cdot T = -B \cdot T' = -B \cdot (\kappa N)$ since $T' = \kappa N$
+  by construction. However, $B \cdot N = 0$ by construction, so in
+  fact $B' \cdot T = 0$. 
+That means, since $[T, N, B]$ is an orthogonal frame, that $B'$ must
+be a scalar multiple of $N$. One 
+\end{itemize}
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "main"
