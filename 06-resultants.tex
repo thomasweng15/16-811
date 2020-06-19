@@ -3,13 +3,74 @@
 
 Worked on by Anirudh.
 
+One technique with several variations.
+
 \section{Isolating simultaneous zeros}
+\anirudh{Figure here}
+
+$p(x, y)$ and $q(x, y)$ are bivariate polynomials in $x$ and $y$. We
+seek their simultaneous zeros. The method of resultants produces a
+single univariate polynomial $R(x)$ such that
+\begin{align*}
+  R(x) = 0
+\end{align*}
+if and only if $p(x, y) = 0$ and $q(x, y) = 0$ for some $y$. So, find
+the roots of $R(x)$. For each of these, solve a polynomial in $y$ to
+get the simultaneous roots of $p$ and $q$.
+
+\textbf{Application:} One can use this technique to split a robot's
+configuration space into critical sections within which the topology
+does not change -- Algebraic Cylindrical Decomposition.
 
 \section{Singular simultaneous zeros}
 
+The method tells us when an overconstrained algebraic system has a
+simultaneous zero. E.g. $p(x) = 0$ and $q(x) = 0$ (2 equations, 1
+unknown).
+
+\anirudh{Figure here}
+
+This is parameter elimination, i.e. the parameter $x$ is
+``removed''. Really, what we get is a resultant $R(\coeff
+\pandq)$ that tells us whether or not $p$ and $q$ have a
+simultaneous root. If $R(\coeff\pandq)= 0$ then yes,
+otherwise no. If the coefficients are known numbers, then we just plug
+in and test. If the coefficients are symbols, then the equation
+$R(\coeff\pandq) = 0$ provides constraints on the coefficients that
+tell us the conditions under which a simultaneous zero exists
+
 \section{Implicitizing parametric equations}
+
+\anirudh{Figure here}
+
+Suppose we have a parameterized curve in $2$D
+\begin{align*}
+  \alpha(t) = (p(t), q(t))
+\end{align*}
+with $p$ and $q$ polynomials in $t$. We might want an implicit
+equation $F(x, y) = 0$ for the same curve, with $F$ a polynomial in
+$x$ and $y$.
+
+Elimination theory will give this to us, basically by constructing the
+system of equations
+\begin{align*}
+  p(t) - x &= 0 \\
+  q(t) - y &= 0
+\end{align*}
+If we think of this as $2$ equations in $1$ unknown $t$, then we are
+back in the ``singular simultaneous zeros'' scenario. In other words,
+we have two polynomial equations in $t$. We think of $x$ and $y$ as
+part of the coefficient set of these equations. The result is a
+polynomial equation $F(x, y) = 0$ that provides constraints on $x$ and
+$y$ for a simultaneous zero in $t$. In other words, it gives us  our
+desired implicit equation.
 
 \section{Brief intro to resultants}
 
 \section{Sylvester's Method}
 
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:
