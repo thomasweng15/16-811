@@ -1,0 +1,22 @@
+\begin{tikzpicture}
+\begin{axis}[
+axis y line=center,
+axis x line=middle,
+scale only axis,
+axis equal,
+xmax=3,xmin=-3,
+ymin=-4,ymax=4,
+xlabel=$x$,ylabel=$y$,
+width=10cm,
+samples=100,
+anchor=center,
+]
+\addplot[thick,domain=-5:0.8,mark=none]{x/(1-x)} node[xshift=-0.5cm,pos=0.8, right, label={$f(x)$}] {};
+\addplot[thick,domain=1.3:5,mark=none]{x/(1-x)} node[yshift=-0.6cm,pos=0.6, below, label={$f(x)$}] {};
+;
+\addplot[thick,mark=none,dashed] coordinates {(1, -4) (1, 4)};
+\addplot[thick,mark=none,dashed] {-1};
+\addplot[thick,domain=-4:4,red,mark=none] {-(x^2)/2} node[xshift=-1cm,pos=0.3, left, label={$p_2(x) = {-1 \over 2} x^2$}]{};
+\addplot[thick,red,only marks] coordinates {(-1,-1/2) (0,0) (2,-2)};
+\end{axis}
+\end{tikzpicture}

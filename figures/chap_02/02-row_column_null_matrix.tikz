@@ -1,0 +1,32 @@
+\begin{tikzpicture}[vect/.style={->,shorten >=3pt,>=latex'}]
+    \begin{scope}[rotate=-30]
+        \tkzDefPoint(0,0){O}
+        \tkzDefPoint(3,0){A}
+        \tkzDefPoint(0,3){B}
+        \tkzDefPoint(2,1){x}
+        \tkzDefPoint(2,0){x_n}
+        \tkzDefPoint(0,1){x_r}
+        \tkzDrawSegments[vect](O,B O,A)
+        \tkzDrawSegments[color=gray, style=dashed](x_r,x x_n,x)
+    \end{scope}
+    \tkzGetPointCoord(x_n){c}
+    \begin{scope}[shift={(5+\cx,\cy)},rotate=30]
+    \tkzDefPoint(0,0){O'}
+    \tkzDefPoint(3,0){A'}
+    \tkzDefPoint(0,3){B'}
+    \tkzDefPoint(0,2){y}
+    \tkzDrawSegments[vect](O',B' O',A')
+    \end{scope}
+    \tkzDrawSegments[vect](x,y x_r,y x_n,O')
+    \tkzLabelPoints(x,y)
+    \tkzLabelPoints[below](x_n)
+    \tkzLabelPoints[left](x_r)
+    \tkzDrawPoints(O',x_r,x_n,x,y)
+    \tkzLabelSegment[sloped](x_n,O'){$x_n\mapsto A x_n = 0$}
+    \tkzLabelSegment[sloped](x,y){$x\mapsto A x$}
+    \tkzLabelSegment[sloped](x_r,y){$x_r\mapsto A x_r = Ax$}
+    \tkzLabelPoint[right](A){$\text{null space of }A$}
+    \tkzLabelPoint[right](B){$\text{row space of }A$}
+    \tkzLabelPoint[right](A'){$\text{null space of }A^T$}
+    \tkzLabelPoint[right](B'){$\text{column space of }A$}
+\end{tikzpicture} 

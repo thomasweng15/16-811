@@ -1,0 +1,56 @@
+\begin{tikzpicture}
+\begin{axis}[
+axis y line=center,
+axis x line=middle,
+axis equal,
+xmax=1,xmin=-1,
+ymin=-1.4,ymax=1.4,
+xlabel=$x$,ylabel=$y$,
+xtick={-1,+1},
+ytick={-1,+1},
+width=6cm,
+samples=100,
+anchor=center,
+]
+\addplot[thick,domain=-1:1,mark=none]{(1)} node[pos=0.9, below, label={$T_0$}] {};
+\addplot[thick,domain=-1:1,mark=none]{x} node[pos=0.6, above, label={$T_1$}] {};
+\addplot[thick,domain=-1:1,mark=none]{2*(x^2)-1} node[pos=0.2, right, label={$T_2$}] {};
+\end{axis}
+\begin{scope}[xshift=6cm]
+\begin{axis}[
+axis y line=center,
+axis x line=middle,
+axis equal,
+xmax=1,xmin=-1,
+ymin=-1.4,ymax=1.4,
+xlabel=$x$,ylabel=$y$,
+xtick={-1,0,1,2,3},
+ytick={-1,1},
+width=6cm,
+samples=100,
+anchor=center,
+]
+\addplot[thick,domain=-1:1,mark=none]{4*(x^3) - 3*x} node[pos=0.0, left, label={$T_3$}] {};
+\addplot[thick,domain=-1:1,mark=none]{8*(x^4) - 8*(x^2) + 1} node[shift={(-0.2cm,-0.5cm)},pos=0.0, left, label={$T_4$}] {};
+\end{axis}
+\end{scope}
+
+\begin{scope}[xshift=12cm]
+\begin{axis}[
+axis y line=center,
+axis x line=middle,
+axis equal,
+xmax=1,xmin=-1,
+ymin=-1.4,ymax=1.4,
+xlabel=$x$,ylabel=$y$,
+xtick={-1,0,1,2,3},
+ytick={-1,1},
+width=6cm,
+samples=100,
+anchor=center,
+]
+\addplot[thick,domain=-1:1,mark=none]{32*(x^6)-48*(x^4)+18*(x^2)-1} node[pos=0.7, below, label={$T_6$}] {};
+\addplot[thick,domain=-1:1,mark=none]{64*(x^7) - 112*(x^5)-56*(x^3)+7*x} node[pos=0.7, below, label={$T_7$}] {};
+\end{axis}
+\end{scope}
+\end{tikzpicture}

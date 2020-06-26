@@ -1,0 +1,18 @@
+\begin{tikzpicture}
+\begin{axis}[
+axis y line=center,
+axis x line=middle,
+axis equal,
+xmax=3,xmin=-3,
+ymin=-2,ymax=4,
+xlabel=$x$,ylabel=$y$,
+xtick={-1,0,1,2,3},
+ytick={1,2,3,4},
+width=10cm,
+samples=100,
+anchor=center,
+]
+\addplot[thick,domain=-4:4,mark=none]{(x-1)^2} node[yshift=1cm,pos=0.75, above, label={$(x-1)^2$}] {};
+\addplot[thick,domain=-4:4,mark=none]{-x+1} node[pos=0.8, right, label={$-x+1$}] {};
+\end{axis}
+\end{tikzpicture}

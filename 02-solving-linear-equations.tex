@@ -15,41 +15,40 @@ Applications for linear equations are numerous. These include, of course, Linear
 \begin{enumerate}
 \item Given a linear function $f: \mathbb{R}^n \rightarrow \mathbb{R}^m$ and a pair of bases,
     \begin{align*}
-        \mathcal{B}_1 &= {e_1,\dots, e_n}\text{ for }\mathbb{R}^n \\
-        \mathcal{B}_2 &= {d_1,\dots, d_m}\text{ for }\mathbb{R}^m
+        \mathcal{B}_1 &= \{e_1, \dots, e_n\}\text{ for }\mathbb{R}^n \\
+        \mathcal{B}_2 &= \{d_1, \dots, d_m\}\text{ for }\mathbb{R}^m
     \end{align*}
-    we can represent $f$ by an $m\times n$ matrix $A$.
+    we can represent $f$ by an $m\times n$ matrix $A$. \\
 
     Notice that the matrix $A$ depends on the choice of bases $\mathcal{B}_1 \times \mathcal{B}_2$.
-    
-    Often we just let $\mathcal{B}_1 \times \mathcal{B}_2$ be the "obvious" bases for $\mathbb{R}^n \times \mathbb{R}^m$.
+    Often we just let $\mathcal{B}_1 \times \mathcal{B}_2$ be the "obvious" bases for $\mathbb{R}^n \times \mathbb{R}^m$. 
     
     \textbf{Moral:} A matrix is a particular coordinate representation of the linear function $f$.
     
 \item Given an $m \times n$ matrix $A$, we make the following definitions:
-    \begin{align*}
-        \text{Column space: } & \text{linear combinations of the columns of }A\\
-        \text{Row space: } & \text{linear combinations of the rows of }A
-    \end{align*}
+    \begin{itemize}
+        \item Column space --- linear combinations of the columns of $A$
+        \item Row space --- linear combinations of the rows of $A$
+    \end{itemize}
+    
     If we think of $A$ as defining the linear mapping 
     \begin{align*}
-        A: &\mathbb{R}^n \rightarrow \mathbb{R}^m \\
-        &
+        A: \mathbb{R}^n &\rightarrow \mathbb{R}^m 
+        \\
         \begin{bmatrix} x_1 \\ \vdots \\ x_n \end{bmatrix}
-        \rightarrow
-        \begin{bmatrix} y_1 \\ \vdots \\ y_m \end{bmatrix}
-        =
-        A
-        \begin{bmatrix} x_1 \\ \vdots \\ x_n \end{bmatrix}
+            &\rightarrow
+            \begin{bmatrix} y_1 \\ \vdots \\ y_m \end{bmatrix}
+            =
+            A
+            \begin{bmatrix} x_1 \\ \vdots \\ x_n \end{bmatrix}
     \end{align*}
-    then the column space of $A$ is a vector subspace of $\mathbb{R}^m$, consisting of all points in $\mathbb{R}^m$ that are image vectors under $A$.
-    
-    Note that the row space of $A$ is just the column space of $A^T$, the transpose of $A$.
+    then the column space of $A$ is a vector subspace of $\mathbb{R}^m$, consisting of all points in $\mathbb{R}^m$ that are image vectors under $A$. Note that the row space of $A$ is just the column space of $A^T$, the transpose of $A$. \\
     
     And we define
-        \begin{align*}
-            \text{null space: } & \text{set of vectors }x\text{ in }\mathbb{R}^n\text{ such that }Ax=0.
-        \end{align*}
+    \begin{itemize}
+        \item Null space --- set of vectors $x$ in $\mathbb{R}_n$ such that $Ax=0$.
+    \end{itemize}
+
     The following relationships are useful to remember:
     \begin{itemize}
         \item $\dim(\text{row space}) = \dim(\text{column space})$, either of which is called the \underline{rank} of $A$,
@@ -61,36 +60,37 @@ Applications for linear equations are numerous. These include, of course, Linear
     \end{itemize}
     In picture form:
     \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.9\textwidth]{figures/linear-1.png}
-        % \caption{Caption}
+        \caption{The figure shows a point $x = x_r \oplus x_n$ being mapped through a matrix $A$ such that $y=Ax$. Here $Ax = Ax_r + Ax_n = Ax_r + 0 = Ax_r$.}
         \label{fig:linear-1}
+        \centering
+        \input{figures/chap_02/02-row_column_null_matrix.tikz}
     \end{figure}
-    
+
 \item Suppose $A$ is an $m\times n$ matrix, and consider the system of equations 
     \begin{align*}
         Ax = b.
     \end{align*}
     \begin{itemize}
-        \item If $b$ is not an element of the column space of $A$, then we say that the system is \underline{inconsistent}(or \underline{overdetermined}). 
+        \item If $b$ is not an element of the column space of $A$, then we say that the system is \underline{inconsistent} (or \underline{overdetermined}). \\
         \item If $b$ is in the column space of $A$ and the null space of $A$ is non-trivial, then we say that the system is \underline{underdetermined}. In this case there is a whole family of solutions, given by the affine set
             $$x_0 + N$$
-        where $x_0$ is any particular solution $Ax_0 = b$, and $N$ is the null space of $A$. 
-        \item If $A$ is a $n\times n$ square matrix we say that $A$ is \underline{singular}
+        where $x_0$ is any particular solution $Ax_0 = b$, and $N$ is the null space of $A$. \\
+        \item If $A$ is a $n\times n$ square matrix we say that $A$ is \underline{singular} iff:
             \begin{description}
-                \item \quad iff $\det(A) = 0$
-                \item \quad iff $\text{rank}(A) < n$
-                \item \quad iff the rows of $A$ are not linearly independent
-                \item \quad iff the columns of $A$ are not linearly independent
-                \item \quad iff the dimension of the null space of $A$ is non-zero
-                \item \quad iff A is not invertible.
+                \item \quad $\det(A) = 0$
+                \item \quad $\text{rank}(A) < n$
+                \item \quad the rows of $A$ are not linearly independent
+                \item \quad the columns of $A$ are not linearly independent
+                \item \quad the dimension of the null space of $A$ is non-zero
+                \item \quad A is not invertible.
             \end{description}
     \end{itemize}
 \end{enumerate}
 
 \newpage
 \section{A quick review of matrix decompositions}
-(we will look at SVD in more detail)
+
+We will look at SVD in more detail.
 
 \subsection{Factorizations based on elimination}
 
@@ -106,9 +106,9 @@ where
     \item \quad $D$ is an $m\times m$ square diagonal matrix.
 \end{description}
 
-[More generally: we may also need to perform column interchanges on $A$, in which case we get two permutation matrices, so $P_1AP_2 = LDU$.]
+[More generally: we may also need to perform column interchanges on $A$, in which case we get two permutation matrices, so $P_1 A P_2 = LDU$. Yet more generally: $PA=LU$ with diagional entries of $U$ no longer required to be $1$.]
 
-Notes:
+\subsubsection*{Notes}
 \begin{enumerate}
     \item The entries on the diagonal of $D$ are sometimes called ``pivots" (after the Gaussian Elimination algorithm). 
     \item The product of the pivots is equal to $\pm\det(A)$ (sign depends on $P$; negative if odd row interchanges), whenever $A$ is a square matrix.
@@ -116,10 +116,9 @@ Notes:
     \item If $A$ is symmetric positive-definite, then $U=L^T$ and the diagonal entries of $D$ are strictly positive.
 \end{enumerate}
 
-\underline{Ex}
-\begin{enumerate}[label=(a)]
-\item 
-    \begin{align*}
+\subsubsection*{Examples}
+\begin{enumerate}[label=(\alph*)]
+\item $
         \begin{bmatrix}
             1 & 0 \\
             1 & 1 \\
@@ -131,24 +130,21 @@ Notes:
             1 & 1 & 0 \\
             0 & -1 & 1
         \end{bmatrix}
-        \begin{bmatrix}
+        \underbrace{\begin{bmatrix}
             1 & 0 & 0 \\
             0 & 1 & 0 \\
             0 & 0 & 1
-        \end{bmatrix}
+        \end{bmatrix}}_{\mathrlap{\text{Could use any value here. Use $0$ if we want $\text{rank}(D) = \text{rank}(A)$.}}}
         \begin{bmatrix}
             1 & 0 \\
             0 & 1 \\
             0 & 0
         \end{bmatrix}
-    \end{align*}
-    
-    Note: can use any value in the last entry of $D$. Use $0$ if we want $\text{rank}(D) = \text{rank}(A)$.
+    $
     
     [If $m > n$, as in this example, then the last $m-n$ rows of $U$ are zero.]
-
 \item
-        \begin{align*}
+        $
         \begin{bmatrix}
             1 & 1 & 0 \\
             2 & 1 & -1 \\
@@ -166,78 +162,102 @@ Notes:
             1 & 1 & 0 \\
             0 & 1 & 1
         \end{bmatrix}
-    \end{align*}
+    $
 \end{enumerate}
 
-\noindent \underline{Algorithm:} Gaussian Elimination directly yields this decomposition.
+\subsubsection*{Algorithm}
 
-\medskip
+Gaussian elimination dierctly yields this decomposition.
 
-\noindent \underline{Application:} As with most decompositions/factorizations, the hope is to simplify solving the system $Ax=b$. 
+\subsubsection*{Application}
 
-Suppose $A$ is square and non-singular. THen solving $Ax=b$ really means solving 
-\begin{align*}
-    LDUx &= Pb.
-\end{align*}
+As with most decompositions/factorizations, the hope is to simplify solving the system $Ax=b$. 
+
+Suppose $A$ is square and non-singular. Then solving $Ax=b$ really means solving $LDUx = Pb$.
+
 In turn this entails solving two simpler problems: 
-\begin{align*}
-    &\text{(i) } Ly = Pb & \text{(solve for $y$)} \\
-    &\text{(ii) } Ux = D^{-1}y & \text{(solve for $x$)}
-\end{align*}
-Each of these problems can be solved easily using forward or back substitution ($D^{-1}$ is easy to compute since $0$ is diagonal with non-zero entries).
+\begin{enumerate}[label=(\roman*)]
+    \item $Ly = Pb$ (solve for $y$)
+    \item $Ux = D^{-1}y$ (solve for $x$)
+\end{enumerate} 
+Each of these problems can be solved easily using forward or back substitution ($D^{-1}$ is easy to compute since $D$ is diagonal with non-zero entries).
 
 \subsection{Factorizations based on eigenvalues}
 
-These are the standard factorization s one learns in a linear algebra course. Two important ones are:
+These are the standard factorizations one learns in a linear algebra course. Two important ones are:
 
-\begin{enumerate}
+\begin{enumerate}[label=(\roman*)]
 \item If $A$ is a square $n\times n$ matrix with $n$ linearly independent eigenvectors, then
-    \begin{align*}
-        A &= S\Lambda S^{-1},
-    \end{align*}
-    where $\Lambda$ is a diagonal matrix whose entries are the eigenvalues of $A$,
+    $$A = S\Lambda S^{-1}$$
+    where $\Lambda$ is a diagonal matrix whose entries are the eigenvalues of $A$, and $S$ is a matrix whose columns are the eigenvectors of $A$.
     
-    \medskip
-    
-    and $S$ is a matrix whose columns are the eigenvectors of $A$.
-    
-    \medskip
-    
-    This factorization is not always possible. (One case in which it is possible ofccurs when $A$ has $n$ distinct eigenvalues.)
+    This factorization is not always possible. (One case in which it is possible occurs when $A$ has $n$ distinct eigenvalues.)
 
 \item One can always decompose $A$ in Jordan form, i.e.,
+    $$A = MJM^{-1}$$
     \begin{align*}
-        A &= MJM^{-1}
-    \end{align*}
-    where $J = 
+        \text{where }J &= 
     \begin{bmatrix}
         J_1 & \dots & 0 \\
         \vdots & \ddots & \vdots \\
         0 & \dots & J_s
     \end{bmatrix}
-    $ is a block matrix, such that each block \newline
-    $J_i = 
+    \text{is a block matrix, such that each block }\\
+    J_i &= 
     \begin{bmatrix}
         \lambda_i^1 & \dots & 0 \\
         \vdots & \ddots & \vdots \\
         0 & \dots & \lambda_i^s
     \end{bmatrix}
-    $ with $\lambda_i$ an eigenvalue of $A$.
-
-    \medskip
+    \text{ with $\lambda_i$ an eigenvalue of $A$.}
+    \end{align*}
     
-    Here $s$ is the number of independent eigenvectors of $A$. $M$ consists of eigenvectors and ``generalized" eigenvectors.
-
-    \medskip
+    Here $s$ is the number of independent eigenvectors of $A$. $M$ consists of eigenvectors and ``generalized'' eigenvectors.
     
-    [Side note: ]
-
+    \subsubsection*{Side note}
+    
+    What is a ``generalized'' eigenvector?
+    Well, suppose a Jordan block is of the form 
+    \[J_i = \begin{bmatrix}4 & 1 \\ 0 & 4\end{bmatrix} \tag*{($\lambda_i = 4$)} \]
+    Then $x_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$ is an eigenvector
+    and $x_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$ is a generalized eigenvector
+    
+    since $J_i x_1 = \lambda_i x_1$ and 
+    $J_i x_2 = \underbrace{\lambda_i x_2 + x_1}_{\mathclap{\text{``not quite'' an eigenvalue.}}}$
 \end{enumerate}
 
 \subsection{Factorizations based on $A^TA$}
 
+Let's look at two such factorizations, QR and SVD.
+
 \subsubsection{QR}
+
+Suppose $A$ is an $m \times n$ matrix with independent columns. We can factor $A$ as:
+\[
+    A = QR \tag*{$Q$ is $m \times n$, $R$ is $n \times n$}
+\]
+
+$Q$ has the same column space as $A$, but its columns are orthonormal vectors. In other words, $Q^TQ = I$ ($QQ^T$ may not be $I$, if $A$ is not square). 
+
+$R$ is invertible and upper triangular. 
+
+Here are two possible algorithms for computing this factorization:
+\begin{enumerate}
+    \item Use Gram-Schmidt to orthogonalize the columns of $A$. The resulting orthonormal vectors constitute the columns of $Q$. The matrix $R$ is formed by keeping track of the Gram-Schmidt operations (specifically, $R$ expresses the columns of $A$ as linear combinations of the columns of $Q$). 
+    \item First, form $A^TA$. This is a positive definite symmetric matrix. (It is positive definite because the columns of $A$ are independent. 
+    
+    Second, compute the $LDU$ factorization of 
+\end{enumerate}
 
 \subsubsection{SVD}
 
 \section{SVD in more detail}
+
+\begin{figure}
+  \centering
+  \label{fig:linear-2}
+  \caption{SVD in more detail}
+  \resizebox{\columnwidth}{!}{
+    \input{figures/chap_02/02-svd.tikz}
+  }
+\end{figure}

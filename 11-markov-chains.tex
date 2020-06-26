@@ -74,9 +74,73 @@ Then $p$ is the probability of a reversal when the particle moves to the right a
 \end{remark}
 
 \begin{example}[Random walks with Absorbing barriers]
-Possible states: $E_0, E_1, \dots E_n$
+
 \akash{Add short figure}
-
-
+\begin{align}
+    \mathbf{P} = \begin{bmatrix}
+    1 & 0 & 0 & 0 \dots 0 & 0 & 0 \\
+    q & 0 & p & 0 \dots 0 & 0 & 0 \\
+    \vdots & \vdots & \vdots & \dots & \vdots & \vdots\\
+    0 & 0 & 0 & 0 \dots q & 0 & p \\
+    0 & 0 & 0 & 0 \dots 0 & 0 & 1
+    \end{bmatrix}
+\end{align}
+\begin{itemize}
+\item Each of the "interior" states $E_1, \dots, E_{n-1}$ admit transitions only to its left neighbor (with probability $P$) and its right neighbor (with probability $Q$)
+\item No transition is possible form $E_0$ or $E_n$ to any other statye. Once $E_0$ or $E_n$ is reached, the system stays there forever
+\end{itemize}
 \end{example}
 
+\begin{example}[Reflecting barriers]
+\akash{Add another figure here}
+\begin{align}
+    \mathbf{P} = \begin{bmatrix} 
+    q & p & 0 & 0 & \dots & 0 & 0 & 0 \\
+    q & 0 & p & 0 & \dots & 0 & 0 & 0 \\
+    \vdots & \vdots & \vdots & \dots & \vdots & \vdots\\
+    0 & 0 & 0 & 0 & \dots & q & 0 & p \\
+    0 & 0 & 0 & 0 & \dots & 0 &q & p \\
+    \end{bmatrix}
+\end{align}
+\end{example}
+
+\begin{example}[Cyclical random walks]
+
+\begin{align}
+ \mathbf{P} = \begin{bmatrix} 
+    0 & p & 0 & 0 & \dots & 0 & 0 & q \\
+    q & 0 & p & 0 & \dots & 0 & 0 & 0 \\
+    0 & q & 0 & p & \dots & 0 & 0 & 0 \\
+    \vdots & \vdots & \vdots & \dots & \vdots & \vdots\\
+    0 & 0 & 0 & 0 & \dots & q & 0 & p \\
+    p & 0 & 0 & 0 & \dots & 0 & 0 & q \\
+    \end{bmatrix}   
+\end{align}
+More generally we may permit the transitions between any two states. Let $q_0, q_1, \dots, q_{n-1}$ be respectively the probabilities of staying fixed or moving $1, 2, \dots, n-1$ units to the right where $k$ units to the right is same as $n-k$ units to the left. The P is as shown below:
+\begin{align}
+    \mathbf{P} = \begin{bmatrix}
+    q_0 & q_1 & q_2 & \dots & q_{n-2} & q_{n-1} \\
+    q_{n-1} & q_0 & q_1 & \dots & q_{n-3} & q_{n-2} \\
+    \vdots & \vdots & \vdots & \dots & \vdots & \vdots \\
+    q_1 & q_2 & q_3 & \dots & q_{n-1} & q_0
+    \end{bmatrix} 
+\end{align}
+\end{example}
+
+\section{Higher Transition Probabilities}
+
+Denoted by $P_{jk}^l$ the probability of a transition form $E_j$ to $E_k$ in exact $l$ steps. This is the sum of the probabilities of all possible paths $E_j, E_j_1, \dots, E_j_{l-1}, E_k$, i.e., 
+\begin{align}
+    P_{jk}^l = \sum_{v \in (j_1, j_{l-1})} \mathbf{P} {(E_v)}
+\end{align}
+
+In particular $P_{jk}^1$ = $P_{jk}$ and $P_{jk}^2 = \sum_s P_{js} P_{sk}$. 
+We define \[P_{jk}^{(j)} = \begin{cases} \mbox{1,} & \mbox{if } j = k \\ \mbox{0,} & \mbox{if $j \neq k$} \end{cases} \]
+and recursively we have:
+\begin{align}
+    P_{jk}^{i+1} = \sum_s P_{js}P_{sk}^i
+\end{align}
+In fact, if we arrange $P_{jk}^l$ into a matrix denoted by $\mathbf{P}^l$, then $\mathbf{P}^l$ is just the chain product of l identical matrices $\mathbf{P}$.
+\begin{example}
+For independent trials it is clear without calculation that $\mathbf{P}^l = \mathbf{P} for all l$
+\end{example}

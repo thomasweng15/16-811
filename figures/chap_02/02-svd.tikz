@@ -1,0 +1,48 @@
+\begin{tikzpicture}[vect/.style={->,shorten >=3pt,>=latex'}]
+\tkzDefPoints{5/0/A, 10/0/B, 15/0/C};
+\tkzDefPoint(0,0){O};
+\tkzDefPoints{-2/0/Xn, 2/0/Xp, 0/2/Yp, 0/-2/Yn};
+\tkzDrawSegments[<->](Xn,Xp Yn,Yp);
+\tkzDrawCircle[R](O,1 cm);
+\tkzLabelPoint[above]([yshift=3cm]O){In $R_n$ coords.};
+\begin{scope}[shift=(A)]
+  \begin{scope}[rotate=15]
+    \tkzDefPoint(0,0){O};
+    \tkzDefPoints{-2/0/Xn, 2/0/Xp, 0/2/Yp, 0/-2/Yn};
+    \tkzDrawSegments[<->](Xn,Xp Yn,Yp);
+    \tkzDrawCircle[R](O,1 cm);
+  \end{scope}
+\tkzLabelPoint[above]([yshift=3cm]O){In ``$V$" coords.};
+\end{scope}
+\begin{scope}[shift=(B)]
+  \begin{scope}[rotate=-15]
+    \tkzDefPoint(0,0){O};
+    \draw (O) ellipse (1.5cm and 1cm);
+    \tkzDefPoints{-2/0/Xn, 2/0/Xp, 0/2/Yp, 0/-2/Yn};
+    \tkzDefPoints{2/0/S1, 0/1/S2};
+    \tkzDrawSegments[<->](Xn,Xp Yn,Yp);
+    \tkzLabelSegment[below](O,S1) {$\sigma_1$}
+    \tkzLabelSegment[right](O,S2) {$\sigma_2$}
+  \end{scope}
+  \tkzLabelPoint[above]([yshift=3cm]O){In ``$U$" coords.};
+\end{scope}
+\begin{scope}[shift=(C)]
+  \tkzDefPoint(0,0){O};
+  \tkzDefPoints{-2/0/Xn, 2/0/Xp, 0/2/Yp, 0/-2/Yn};
+  \tkzDrawSegments[<->](Xn,Xp Yn,Yp);
+  \begin{scope}[rotate=-15]
+    \draw (O) ellipse (1.5cm and 1cm);
+  \end{scope}
+  \tkzLabelPoint[above]([yshift=3cm]O){In $R_m$ coords.};
+\end{scope}
+\tkzDefPoint(0,0){O};
+\tkzDrawSegments[->]([shift={(2,1)}]O,[shift={(-2,1)}]A);
+\tkzLabelSegment[sloped]([shift={(2,1)}]O,[shift={(-2,1)}]A){$V^T$};
+\tkzDrawSegments[->]([shift={(2,1)}]A,[shift={(-2,1)}]B);
+\tkzLabelSegment[sloped]([shift={(2,1)}]A,[shift={(-2,1)}]B){$\Sigma$};
+\tkzDrawSegments[->]([shift={(2,1)}]B,[shift={(-2,1)}]C);
+\tkzLabelSegment[sloped]([shift={(2,1)}]B,[shift={(-2,1)}]C){$U$};
+\draw[->] ([shift={(1,-1)}]O) to [out=-30,in=-150] ([shift={(-1,-1)}]C);
+\node at (7.5,-2.5) {$A$};
+% Create the labels:
+\end{tikzpicture}
