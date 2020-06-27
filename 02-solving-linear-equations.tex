@@ -197,12 +197,12 @@ These are the standard factorizations one learns in a linear algebra course. Two
     $$A = MJM^{-1}$$
     \begin{align*}
         \text{where }J &= 
-    \begin{bmatrix}
-        J_1 & \dots & 0 \\
-        \vdots & \ddots & \vdots \\
-        0 & \dots & J_s
-    \end{bmatrix}
-    \text{is a block matrix, such that each block }\\
+        \begin{bmatrix}
+            J_1 & \dots & 0 \\
+            \vdots & \ddots & \vdots \\
+            0 & \dots & J_s
+        \end{bmatrix}
+        \text{is a block matrix, such that each block }\\
     J_i &= 
     \begin{bmatrix}
         \lambda_i^1 & \dots & 0 \\
@@ -230,26 +230,61 @@ These are the standard factorizations one learns in a linear algebra course. Two
 
 Let's look at two such factorizations, QR and SVD.
 
-\subsubsection{QR}
-
-Suppose $A$ is an $m \times n$ matrix with independent columns. We can factor $A$ as:
-\[
-    A = QR \tag*{$Q$ is $m \times n$, $R$ is $n \times n$}
-\]
-
-$Q$ has the same column space as $A$, but its columns are orthonormal vectors. In other words, $Q^TQ = I$ ($QQ^T$ may not be $I$, if $A$ is not square). 
-
-$R$ is invertible and upper triangular. 
-
-Here are two possible algorithms for computing this factorization:
-\begin{enumerate}
-    \item Use Gram-Schmidt to orthogonalize the columns of $A$. The resulting orthonormal vectors constitute the columns of $Q$. The matrix $R$ is formed by keeping track of the Gram-Schmidt operations (specifically, $R$ expresses the columns of $A$ as linear combinations of the columns of $Q$). 
-    \item First, form $A^TA$. This is a positive definite symmetric matrix. (It is positive definite because the columns of $A$ are independent. 
+\begin{enumerate}[label=(\roman*)]
+    \item \textbf{QR}
+        
+    Suppose $A$ is an $m \times n$ matrix with independent columns. We can factor $A$ as:
+    \[
+        A = QR \tag*{($Q$ is $m \times n$,  $R$ is $n \times n$)}
+    \]
     
-    Second, compute the $LDU$ factorization of 
+    $Q$ has the same column space as $A$, but its columns are orthonormal vectors. In other words, $Q^TQ = I$ ($QQ^T$ may not be $I$, if $A$ is not square). 
+    
+    $R$ is invertible and upper triangular. 
+    
+    Here are two possible algorithms for computing this factorization:
+    \begin{enumerate}
+        \item Use Gram-Schmidt to orthogonalize the columns of $A$. The resulting orthonormal vectors constitute the columns of $Q$. The matrix $R$ is formed by keeping track of the Gram-Schmidt operations (specifically, $R$ expresses the columns of $A$ as linear combinations of the columns of $Q$). 
+        \item First, form $A^TA$. This is a positive definite symmetric matrix. (It is positive definite because the columns of $A$ are independent. 
+        
+        Second, compute the $LDU$ factorization of $A^TA$. One finds that $A^TA = LDL^T$, with $L$ lower-triangular and $D$ diagonal strictly positive. 
+        
+        Finally, let $R = D^{\frac{1}{2}}L^T$ and $Q=AR^{-1}$. 
+    \end{enumerate}
+    
+    Unfortunately, both of these straightforward algorithms have poor numerical stability. in practice one uses a different algorithm. See \S 11.3 of NRiC for a good algorithm.
+    
+    \subsubsection*{Applications}
+    
+    \begin{enumerate}[label=(\alph*)]
+        \item ``The QR algorithm'': This is an iterative method that repeatedly produces $QR$ factorizations of matrices derived from $A$, building the eigenvalues of $A$ in the process.
+        \item Supposed we wish to solve an overconstrained system $Ax = b$ in the least-squares sense. The least-squares solution $\bar{c}$ is given by $\bar{x}=(A^TA)^{-1}A^Tb$, assuming the columns of $A$ are indepedent. But $Q^TQ = I$, so $\bar{x} = R^{-1}Q^Tb$. 
+        
+        So, we can obtain $\bar{x}$ by computing $Q^Tb$, then using backsubstitution to solve $R\bar{x} = Q^Tb$. This is numerically more stable than solving the system $A^TA\bar{x} - A^Tb directly$.
+    \end{enumerate}
+    
+    \item \textbf{SVD}
+    
+    Any $m \times n$ matrix can be factored as 
+    \[
+        A = U \Sigma V^T
+    \]
+    \begin{align*}
+        \text{where } &U \text{ is an $m \times m$ orthogonal matrix whose columns are the eigenvectors of $AA^T$} \\
+        &V \text{ is an $n \times n$ orthogonal matrix whose columns are the eigenvectors of $A^TA$} \\
+        &\Sigma \text{ is a diagonal $n \times n$ matrix of the form} 
+        % \[
+        %     \Sigma = \begin{bmatrix}
+        %         \sigma_1 & & 0 \\
+        %          & \sigma_k & \\
+        %         0 & & 0
+        %     \end{bmatrix}
+        % \]
+    \end{align*}
+    
 \end{enumerate}
 
-\subsubsection{SVD}
+
 
 \section{SVD in more detail}
 
