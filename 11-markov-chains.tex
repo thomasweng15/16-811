@@ -129,7 +129,7 @@ More generally we may permit the transitions between any two states. Let $q_0, q
 
 \section{Higher Transition Probabilities}
 
-Denoted by $P_{jk}^l$ the probability of a transition form $E_j$ to $E_k$ in exact $l$ steps. This is the sum of the probabilities of all possible paths $E_j, E_j_1, \dots, E_j_{l-1}, E_k$, i.e., 
+Denoted by $P_{jk}^l$ the probability of a transition form $E_j$ to $E_k$ in exact $l$ steps. This is the sum of the probabilities of all possible paths $E_j, E_{j-1}, \dots, E_{j-{l-1}}, E_k$, i.e., 
 \begin{align}
     P_{jk}^l = \sum_{v \in (j_1, j_{l-1})} \mathbf{P} {(E_v)}
 \end{align}

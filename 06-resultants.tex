@@ -67,8 +67,192 @@ polynomial equation $F(x, y) = 0$ that provides constraints on $x$ and
 $y$ for a simultaneous zero in $t$. In other words, it gives us  our
 desired implicit equation.
 
-\section{Brief intro to resultants}
+\begin{example}[Very quick overview of the paper by Ponce and Kriegman]
+  \textbf{Goal}: P\&K would like to recognize objects by matching
+  image observables directly to 3D models (rather than build
+  intermediate representations).
 
+  \begin{itemize}
+  \item Motivated by the use of planes, quadrics, superquadrics, etc. in CAD
+  systems, P\&K assume that their models have rational parametric
+  descriptions. Thus their models consist of surface patches described
+  as
+  \begin{align*}
+    \vec{x}(s, t) = \frac{\sum s^it^j \vec{x}_{ij}}{\sum s^it^j w_{ij}}
+  \end{align*}
+  where $\vec{x}_{ij}$ and $w_{ij}$ are vectors and numbers derived
+  from their model data. $\vec{x}$ is of the form $(x, y, z)$,
+  i.e. $3$D. $s, t$ are the patch parameters
+\item Next, P\&K define $\vec{\theta}$ to be the vector of observables
+  (e.g. intensity, intensity gradients, 3D data, $\cdots$), and
+  $\vec{p}$ to be the vector of viewing parameters (e.g. pose of an
+  object relative to the camera, direction of the light source etc.)
+\item The relationship between the observables $\vec{\theta}$ and the
+  viewing parameters $\vec{p}$ depends on the surface $\vec{x}(s, t)$
+  observed. For instance, intensity data depends both on the light
+  source and the surface normal.
+
+  The trick is to have enough observables and viewing parameters so
+  that one can construct three such relationships, described
+  implicitly by three equations that relate $s, t, \vec{\theta}$ and
+  $\vec{p}$:
+  \begin{align*}
+    f_1(s, t, \vectheta, \vecp) &= 0 \\
+    f_2(s, t, \vectheta, \vecp) &= 0 \\
+    f_3(s, t, \vectheta, \vecp) &= 0
+  \end{align*}
+  (There are $3$ such functions for each surface patch in the model
+  database.)
+\item For instance, here is an example from the P\&K paper:
+
+  \textbf{Observables}: $\vectheta = (x, y, I)$ where $I$ is the
+  intensity observed in the image at image coordinates $(x, y)$.
+
+  \textbf{Viewing Parameters}: $\vecp = (x_0, y_0, \vecl, \vecw,
+  \vecu)$ where $(x_0, y_0)$ is the world origin in the camera's
+  coordinate system (so won't matter), $\vecl$ is a unit vector
+  describing the direction of the light source (situated at infinity),
+  $\vecw$ is the unit vector describing the world orientation of the
+  image X-axis, $\vecu$ is the unit vector describing the world
+  orientation of the image Y-axis (Note: together $\vecw$ and $\vecu$
+  have 3 dofs, and thus are often replaced by three angles $(\alpha,
+  \beta, \gamma)$ that describe the orientation of the camera. For
+  simplicity of presentation, we won't worry about that here.)
+
+  The three equations relating $\vectheta$ and $\vecp$ in terms of a
+  given surface patch $\vecx(s, t)$ are then
+  \begin{align*}
+    x &= \vecx(s, t)\cdot\vecw + x_0 \\
+    y &= \vecx(s, t)\cdot\vecu + y_0 \\
+    I &= \vecN \cdot \vecl
+  \end{align*}
+  where $\vecN$ is the surface normal at $\vecx(s, t)$, obtained in
+  the usual way. (This derivation assumes a matte surface and
+  orthographic projection, for simplicity.)
+\item So, P\&K have three equations in $\vectheta$, $\vecp$ and $(s,
+  t)$. Since the parameters $s, t$ aren't intrinsic they are a
+  nuisance -- after all, the same surface can be parameterized in
+  different ways.
+
+  P\&K get rid of $s, t$ using Elimination theory. Again, this is much
+  like case of ``Singular Simultaneous Zeros''. We think of the
+  equations
+  \begin{align*}
+    f_1(s, t, \vectheta, \vecp) &= 0 \\
+    f_2(s, t, \vectheta, \vecp) &= 0 \\
+    f_3(s, t, \vectheta, \vecp) &= 0
+  \end{align*}
+  as $3$ equations in $2$ unknowns, i.e. an overconstrained system.
+
+  Elimination theory allows us to construct a ``resultant'' equation
+  in the coefficients of $s, t$ in $f_1, f_2, f_3$. $\vectheta$ and
+  $\vecp$ are some of these coefficients. We thus get a single
+  implicit equation
+  \begin{align*}
+    F \cdot (\vectheta, \vecp) = 0
+  \end{align*}
+  that relates $\vectheta$ and $\vecp$.
+
+  The data $\{\vecx_{ij}\}$ and $\{w_{ij}\}$ appear inside this
+  equation, but the parameters $s, t$ have been eliminated.
+
+  In the image intensity example, we then get a standard implicit
+  equation $F(x, y, I, x_0, y_0, \vecl, \vecw, \vecu) = 0$ relating
+  observed intensity to camera and light source, parameterized by the
+  observed surface point. In other words, $F$ is an implicit equation
+  for the intensity surface $I(x, y)$ parameterized by all the other
+  quantities.
+\item \textbf{Beyond eliminating $s, t$, how is this useful to
+    P\&K?}. They would like to do two things: Given some observed data
+  \begin{enumerate}
+  \item Determine which object they are looking at,
+  \item Determine unknown viewing parameters (e.g. the orientation of
+    the camera to the object, i.e. the pose of the object.)
+  \end{enumerate}
+
+  \textbf{Here is the approach P\&K take}:
+  \begin{enumerate}
+  \item First, they have a collection of models $M_1, \cdots,
+    M_m$. For simplicity, let's think of each as being a single
+    surface patch $\vecx_j(s, t)$. Thus, using elimination theory,
+    P\&K construct a collection of implicit functions
+    \begin{align*}
+      F_1(\vectheta, \vecp) &= 0 \\
+                            &\vdots \\
+      F_m(\vectheta, \vecp) &= 0
+    \end{align*}
+    one for each model. $F_j$ relates observables and viewing
+    parameters whenever the camera is looking at an object
+    corresponding to the model $M_j$.
+  \item Next, P\&K collect data. Specifically they look at an unknown
+    object with unknown viewing parameters. They look at several
+    points on the object, and then acquire collection of data points
+    $\vectheta_1, \cdots, \vectheta_n$ (For instance, in the image
+    intensity example, each triple $(x, y, I)$ as $(x, y)$ varies over
+    the image is a data point.)
+  \item Finally, P\&K run the following recognition algorithm:
+    \begin{enumerate}
+    \item For each model $M_j$, determine the viewing parameters
+      $\vecp_j$ that minimize the squared error
+      \begin{align*}
+        E_j = \sum_{i=1}^n F_j^2(\vectheta_i, \vecp)
+      \end{align*}
+      (so $\vecp$ is the minimization variable.)
+    \item For each model $M_j$, and each data point $\vectheta_i$, let
+      $d_{ij}$ be the distance between $\vectheta_i$ and the surface
+      in $\vectheta$-space defined implicitly by the equation
+      $F_j(\vectheta, \vecp_j) = 0$. Then compute the cumulative
+      distance
+      \begin{align*}
+        D_j = \sum_{i=1}^n d_{ij}
+      \end{align*}
+    \item Let $j_0$ be the index that minimizes $D_j$. Model $M_{j_0}$
+      is reported back.
+    \end{enumerate}
+  \end{enumerate}
+  \end{itemize}
+\end{example}
+
+\section{Brief intro to resultants}
+Good reference: Sederberg, Anderson \& Goldman \textit{Implicit
+  Representation of Parametric Curves and Surfaces} in Computer
+Vision, Graphics and Image Processing $28, 72-84$ ($1984$).
+
+\subsection{Motivation}
+\begin{itemize}
+\item Determine when a system of equations has a simultaneous zero
+\item Use this, e.g. to implicitize parametric equations
+\end{itemize}
+
+Recall how this works for linear systems:
+\begin{align*}
+  a_{11}x_1 + a_{12}x_2 &+ \cdots + a_{1n}x_n = 0 \\
+                        &\vdots \\
+  a_{n1}x_1 + a_{n2}x_2 &+ \cdots + a_{nn}x_n = 0
+\end{align*}
+i.e. $Ax = 0$. This system has a \textit{non-trivial} solution iff $A$
+is singular, i.e. iff $\det(A) = 0$. Furthermore, if we have a reduced
+system ($n-1$ equations, $n$ unknowns)
+\begin{align*}
+  a_{11}x_1 + &\cdots + a_{1n}x_n = 0 \\
+              &\vdots \\
+  a_{n-1}x_1 + &\cdots + a_{n-1, n}x_n = 0
+\end{align*}
+then the ratio $\frac{x_i}{x_j}$ of any solution is given by
+\begin{align*}
+  \frac{x_i}{x_j} = (-1)^{i+j} \frac{\det(A_i)}{\det(A_j)}
+\end{align*}
+where
+\begin{align*}
+  A_i =
+  \begin{bmatrix}
+    a_{11} &\cdots &a_{1, i-1} &a_{1, i+1} &\cdots &a_{1n} \\
+    \vdots&&&&&\vdots \\
+    a_{n-1, 1} &\cdots &a_{n-1, i-1} &a_{n-1, i+1} &\cdots &a_{n-1, n}
+  \end{bmatrix}
+\end{align*}
+i.e. $A_i$ is $A$ with its $i$th column removed ($A_i$ is a
+$(n-1)\times (n-1)$ matrix.)
 \section{Sylvester's Method}
 
 
