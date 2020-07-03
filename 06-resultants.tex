@@ -253,8 +253,232 @@ where
 \end{align*}
 i.e. $A_i$ is $A$ with its $i$th column removed ($A_i$ is a
 $(n-1)\times (n-1)$ matrix.)
+
+\begin{example}
+  \begin{align*}
+    x + y + z &= 0 \\
+    2x + y &= 0
+  \end{align*}
+  $A_1 =
+  \begin{bmatrix}
+    1 & 1 \\
+    1 & 0
+  \end{bmatrix}
+  $, $A_2 =
+  \begin{bmatrix}
+    1 & 1 \\
+    2 & 0
+  \end{bmatrix}
+$, $A_3 =
+\begin{bmatrix}
+  1 & 1 \\
+  2 & 1
+\end{bmatrix}
+$, $\det A_1 = -1$, $\det A_2 = -2$, and $\det A_3 = -1$. So this
+syste, has a line of solutions of the form $c(1, -2, 1)$. (Set $z = 1$
+and note $\frac{x}{z} = (-1)^4\frac{-1}{-1}$, $\frac{y}{z} = (-1)^5
+\frac{-2}{-1}$). Indeed, if we did some linear algebra by hand on the
+original two equations that's the result we would get as well.
+\end{example}
+
+\textbf{The big question}: How does one generalize this approach to
+non-linear systems? For polynomial systems, Resultants and Elimination
+Theory are the answer.
+
+We will illustrate the approach with low degree polynomials.
+
 \section{Sylvester's Method}
 
+Suppose we have two univariate quadratics:
+\begin{align*}
+  ax^2 + bx + c &= 0 \\
+  a'x^2 + b'x + c' = 0
+\end{align*}
+where $a \neq 0$ and $a' \neq 0$. Does this system have a simultaneous
+zero? Well, here's a trick:
+
+The system above has a simultaneous zero iff there is some $x$ such
+that
+$$
+  \begin{bmatrix}
+    a & b & c & 0 \\
+    0 & a & b & c \\
+    a' & b' & c' & 0 \\
+    0 & a' & b' & c'
+  \end{bmatrix}
+                  \begin{bmatrix}
+                    x^3 \\ x^2 \\ x \\ 1
+                  \end{bmatrix} = 0 $$
+
+Write this as $Q\vecx^3 = 0$ where $\vecx^3 =
+\begin{bmatrix}
+  x^3 \\ x^2 \\ x \\ 1
+\end{bmatrix}
+$. By analogy to the linear case we claim that this is possible iff
+$\det Q = 0$.
+
+If $x^3, x^2, x, 1$ really were independent variables, then this would
+be clear, but they are not, so let us prove our claim,
+\begin{claim}
+  $Qx^3 = 0$ iff $\det Q = 0$
+\end{claim}
+\begin{proof}
+  \begin{enumerate}
+  \item Necessity is clear. After all if $Q
+    \begin{bmatrix}
+      x^3 \\ x^2 \\ x || 1
+    \end{bmatrix} = 0
+$ for some $x$, then $\det Q = 0$ by linear algebra since $
+\begin{bmatrix}
+  x^3 \\ x^2 \\ x \\ 1
+\end{bmatrix}
+$ is a non-trivial vector.
+\item What about sufficiency? If $\det Q = 0$ can we show that there
+  is an $x$ for which $Q\vecx^3 = 0$?
+
+  Yes, here's how: Since $\det Q = 0$ we know that there is some
+  vector $\vecv =
+  \begin{bmatrix}
+    v_1 \\ v_2 \\ v_3 \\ v_4
+  \end{bmatrix}
+$ such that $Q\vecv = 0$. Assuming that we started with two different
+equations (which is easy enough to check) we know that rows $1$ and
+$3$ of Q are independent, as are rows $2$ and $4$.
+
+In other words, the linear system
+\begin{align*}
+  av_1 + bv_2 + cv_3 &= 0 \\
+  a'v_1 + b'v_2 + c'v_3 &= 0
+\end{align*}
+has a line of solutions in $(v_1, v_2, v_3)$ space. In other words
+$(v_1, v_2, v_3) = \alpha(r, s, t)$ where $(r, s, t)$ is the direction
+vector of the line and $\alpha$ is a scalar.
+
+Similarly, the system
+\begin{align*}
+  av_2 + bv_3 + cv_4 &= 0 \\
+  a'v_2 + b'v_3 + c'v_4 &= 0
+\end{align*}
+has a line of solutions in $(v_2, v_3, v_4)$ space.
+
+Of course, since the coefficients are the same, this line is the same
+as in the previous case, just shifted by one coordinate.
+
+In other words, $(v_2, v_3, v_4) = \beta(r, s, t)$ for some $\beta$.
+So, if $Qv = 0$ then
+\begin{align*}
+  (v_1, v_2, v_3) &= \alpha(r, s, t) \\
+  (v_2, v_3, v_4) &= \beta(r, s, t)
+\end{align*}
+Therefore, $v_1 = \frac{\alpha}{\beta}v_2 = \left(
+  \frac{\alpha}{\beta} \right)^2v_3 = \left( \frac{\alpha}{\beta}
+\right)^3v_4$. $\beta$ can't be zero, for if it were then we'd be
+saying $Q
+\begin{bmatrix}
+  1 \\ 0 \\ 0 \\ 0
+\end{bmatrix} = 0
+$, which is impossible since $a$ and $a'$ are non-zero. Also, $v_4$
+can't be zero, for then $v = 0$, and we're assuming $Qv = 0$ has a
+non-trivial solution.
+
+So, let's take $v_4$ to be $1$ (we can do that since any multiple of
+$v$ will also satisfy $Qv = 0$).
+
+Then our solution looks like $(x^3, x^2, x, 1)$, with $x =
+\frac{\alpha}{\beta}$.
+
+
+\textit{In short, if $\det Q = 0$, then there is a non-trivial
+  solution to $Qv = 0$, and furthermore $v$ is of the form $
+  \begin{bmatrix}
+    x^3 \\ x^2 \\ x \\ 1
+  \end{bmatrix}
+$}
+  \end{enumerate}
+\end{proof}
+
+\textbf{Terminology}: $\det Q = 0$ is called the resultant of the
+original two equations
+\begin{align*}
+  ax^2 + bx + c &= 0 \\
+  a'x^2 + b'x + c' = 0
+\end{align*}
+
+\begin{definition}[Resultant]
+  A resultant of a set of polynomials is an expression involving the
+  coefficients of the polynomials such that the vanishing of the
+  resultant is a necessary and sufficient condition for the set of
+  polynomials to have a common zero
+
+  (It is a generalization of the idea of a determinant, which is an
+  expression involving the coefficients of a set of linear equations.)
+\end{definition}
+
+Sylvester's method outlined above for two quadratic polynomials can be
+generalized. More generally, Sylvester's method expresses the
+resultant of two univariate polynomials of degree $m$ and $n$ as a
+determinant of an $(m+n)\times (m+n)$ matrix.
+
+\begin{numerical-example}
+  \begin{align*}
+    p(x) &= x^2 - 6x + 2 \\
+    q(x) &= x^2 + x + 5
+  \end{align*}
+  $\det Q = \det
+  \begin{bmatrix}
+    1 & -6 & 2 & 0 \\
+    0 & 1 & -6 & 2 \\
+    1 & 1 & 5 & 0 \\
+    0 & 1 & 1 & 5
+  \end{bmatrix} = 233
+$, which is non-zero. Therefore we know that $p$ and $q$ do not have a
+common zero. (Indeed, we could check this directly. $p(x)$ has roots $
+3 \pm \sqrt{7}$ and $q(x)$ has roots $-\frac{1}{2} \pm \frac{1}{2}\sqrt{-19}$)
+\end{numerical-example}
+
+\begin{numerical-example}
+  \begin{align*}
+    p(x) &= x^2 - 4x - 5 \\
+    q(x) &= x^2 - 7x + 10
+  \end{align*}
+  (It's easy to solve this by hand. $x = 5$ is the common root.)
+
+  $\det Q = \det
+  \begin{bmatrix}
+    1 & -4 & -5 & 0 \\
+    0 & 1 & -4 & -5 \\
+    1 & -7 & 10 & 0 \\
+    0 & 1 & -7 & 10
+  \end{bmatrix} = 0
+  $, so $p$ and $q$ do have a common root.
+
+  To find it, consider the partial system $
+  \begin{bmatrix}
+    1 & -4 & -5 & 0 \\
+    0 & 1 & -4 & -5 \\
+    1 & -7 & 10 & 0
+  \end{bmatrix}
+  \begin{bmatrix}
+    x^3 \\ x^2 \\ x \\ 1
+  \end{bmatrix} = 0
+  $. Using our previous linear algebra result, we know that
+  \begin{align*}
+    x = \frac{x^3}{x^2} &= (-1)^{1+2} \frac{\det
+    \begin{bmatrix}
+      -4 & -5 & 0 \\
+      1 & -4 & -5 \\
+      -7 & 10 & 0
+    \end{bmatrix}
+}{\det
+                \begin{bmatrix}
+                  1 & -5 & 0 \\
+                  0 & -4 & -5 \\
+                  1 & 10 & 0
+                \end{bmatrix}
+                           } \\
+    &= (-1) \frac{-375}{75} = 5
+  \end{align*}
+\end{numerical-example}
 
 %%% Local Variables:
 %%% mode: latex
