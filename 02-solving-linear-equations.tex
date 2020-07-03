@@ -58,13 +58,13 @@ Applications for linear equations are numerous. These include, of course, Linear
             n &= \dim(\text{row space}) + \dim(\text{null space})
         \end{align*}
     \end{itemize}
-    In picture form:
-    \begin{figure}[H]
+    \begin{figure}[th]
         \caption{The figure shows a point $x = x_r \oplus x_n$ being mapped through a matrix $A$ such that $y=Ax$. Here $Ax = Ax_r + Ax_n = Ax_r + 0 = Ax_r$.}
         \label{fig:linear-1}
         \centering
         \input{figures/chap_02/02-row_column_null_matrix.tikz}
     \end{figure}
+    See Fig.~\ref{fig:linear-1} for an illustration. 
 
 \item Suppose $A$ is an $m\times n$ matrix, and consider the system of equations 
     \begin{align*}
@@ -90,7 +90,7 @@ Applications for linear equations are numerous. These include, of course, Linear
 \newpage
 \section{A quick review of matrix decompositions}
 
-We will look at SVD in more detail.
+(We will look at SVD in more detail)
 
 \subsection{Factorizations based on elimination}
 
@@ -167,7 +167,7 @@ where
 
 \subsubsection*{Algorithm}
 
-Gaussian elimination dierctly yields this decomposition.
+Gaussian elimination directly yields this decomposition.
 
 \subsubsection*{Application}
 
@@ -260,7 +260,7 @@ Let's look at two such factorizations, QR and SVD.
         \item ``The QR algorithm'': This is an iterative method that repeatedly produces $QR$ factorizations of matrices derived from $A$, building the eigenvalues of $A$ in the process.
         \item Supposed we wish to solve an overconstrained system $Ax = b$ in the least-squares sense. The least-squares solution $\bar{c}$ is given by $\bar{x}=(A^TA)^{-1}A^Tb$, assuming the columns of $A$ are indepedent. But $Q^TQ = I$, so $\bar{x} = R^{-1}Q^Tb$. 
         
-        So, we can obtain $\bar{x}$ by computing $Q^Tb$, then using backsubstitution to solve $R\bar{x} = Q^Tb$. This is numerically more stable than solving the system $A^TA\bar{x} - A^Tb directly$.
+        So, we can obtain $\bar{x}$ by computing $Q^Tb$, then using backsubstitution to solve $R\bar{x} = Q^Tb$. This is numerically more stable than solving the system $A^TA\bar{x} - A^Tb$ directly.
     \end{enumerate}
     
     \item \textbf{SVD}
@@ -269,18 +269,93 @@ Let's look at two such factorizations, QR and SVD.
     \[
         A = U \Sigma V^T
     \]
-    \begin{align*}
-        \text{where } &U \text{ is an $m \times m$ orthogonal matrix whose columns are the eigenvectors of $AA^T$} \\
-        &V \text{ is an $n \times n$ orthogonal matrix whose columns are the eigenvectors of $A^TA$} \\
-        &\Sigma \text{ is a diagonal $n \times n$ matrix of the form} 
-        % \[
-        %     \Sigma = \begin{bmatrix}
-        %         \sigma_1 & & 0 \\
-        %          & \sigma_k & \\
-        %         0 & & 0
-        %     \end{bmatrix}
-        % \]
-    \end{align*}
+    where 
+    \begin{description}
+        \item $U$ is an $m \times m$ orthogonal matrix whose columns are the eigenvectors of $AA^T$
+        \item $V$ is a $n \times n$ orthogonal matrix whose columsn are the eigenvectors of $A^TA$
+        \item $\Sigma$ is a diagonal $n \times n$ matrix of the form 
+            \begin{align*}
+                \Sigma = \begin{bmatrix}
+                    \sigma_1 & & & & 0 \\
+                    & \ddots & & & \\ 
+                    & & \sigma_k & & \\
+                    & & & \ddots & \\ 
+                    0 & & & & 0
+                \end{bmatrix}
+            \end{align*}\\
+            with $\sigma_1 \geq \sigma_2 \geq \dots \geq \sigma_k > 0$ \\
+            and $k = \text{rank}(A)$
+    \end{description}
+    
+    The $\{\sigma_i\}$ are the square-roots of the eigenvalues of $A^TA$. They are called the \underline{singular values} of $A$.
+    
+    Fact: If $A$ is symmetric positive definite then $U=V$ and $\Sigma$ is just the eigenvalue matrix of $A$.
+    
+    \subsubsection*{Motivation}
+    \begin{enumerate}[label=(\roman*)]
+        \item The basic goal is to ``solve'' the system $Ax=b$ for all matrices $A$ and vectors $b$.
+        \item A second goal is to solve $Ax=b$ using a numerically stable algorithm.
+        \item A third goal is to solve $Ax=b$ in a reasonably efficient manner. For instance, we do not want to compute $A^{-1}$ using determinants.
+    \end{enumerate}
+    
+    \subsection*{Comments}
+    
+    \subsubsection*{Regarding the basic goal}
+    \begin{itemize}
+        \item If $A$ is square and invertible we of course want the solution $x = A^{-1}b$
+        \item If $A$ is underconstrained, we want the entire set of solutions. 
+        \item If $A$ is overconstrained, we could simply give up. But this case arises a lot in practice, so instead we will ask for the least-squares solution. In other words, we want the $\bar{x}$ which minimizes the error $\| A\bar{x} - b \|$. Geometrically, $A\bar{x}$ is the point in the column space of $A$ closest to $b$.
+    \end{itemize}
+    
+    \subsubsection*{Regarding stability and efficiency}
+
+    Gaussian Elimination is reasonably efficient, but it is not numerically very stable. In particular, elimination does not deal well with nearly singular matrices. The method is not designed for overconstrained systems. Even for underconstrained systems, the method requires extra work. 
+    
+    The poor numerical character of elimination can be seen in a couple ways
+    \begin{enumerate}
+        \item The elimination process assumes a non-singular matrix. But singularity and rank in general, is a slippery concept. After all, the matrix $A$ contains continuous, possibly noisy, numbers. Yet, rank is a discrete integer. Technically, both these sets are linearly independent vectors:
+        \[ 
+            \left\{ 
+                \begin{bmatrix} 
+                    1 \\ 
+                    0 \\
+                    0
+                \end{bmatrix},
+                \begin{bmatrix} 
+                    0 \\ 
+                    1 \\
+                    0
+                \end{bmatrix},
+                \begin{bmatrix} 
+                    0 \\ 
+                    0 \\
+                    1
+                \end{bmatrix}
+            \right\}
+            \left\{ 
+                \begin{bmatrix} 
+                    1.01 \\ 
+                    1.00 \\
+                    1.00
+                \end{bmatrix},
+                \begin{bmatrix} 
+                    1.00 \\ 
+                    1.01 \\
+                    1.00
+                \end{bmatrix},
+                \begin{bmatrix} 
+                    1.00 \\ 
+                    1.00 \\
+                    1.01
+                \end{bmatrix}
+            \right\}
+        \]
+        Yet, the first set seems genuinely independent while the second set seems ``almost dependent.''
+        
+        \item Based on elimination, one solves $Ax=b$ by solving (via forward/backsubstitution) $Ly=b$ $Ux=D^{-1}y$.
+        
+        If $A$ is nearly singular (e.g., if it is given by the second set, of column vectors above), then $D$ will contain near-zero entries on its diagonal, and thus $D^{-1}$ will contain large numbers. That's all fine and good. In principle one needs the large numbers to obtain a true solution. The problem is if $A$ contains noisy entries. Then the large numbers may be pure noise --- noise that dominates the true information. Furthermore, since $L$ and $U$ can be fairly arbitrary, they may distort or magnify that noise across other variables. 
+    \end{enumerate}
     
 \end{enumerate}
 
@@ -288,14 +363,77 @@ Let's look at two such factorizations, QR and SVD.
 
 \section{SVD in more detail}
 
-\begin{figure}
+Recall that it is sometimes possible to decompose an $n \times n$ matrix $A$ as: 
+\[
+    A = S \Lambda S^{-1}
+\]
+where $\lambda$ is diagonal, containing the eigenvalues of $A$, and $S$ is a change-of-basis matrix containing the eigenvectors of $A$.
+
+Why is this nice? 
+
+The answer lies in the change of coordinates $y= S^{-1}x$. Instead of working with the system $Ax=b$, we can work with the system $\Lambda y = c$, where $c = S^{-1}b$. Since $Lambda$ is diagonal, we really have the trivial system
+\[
+    \delta_i y_i = c_i, i=1,\dots, n.
+\]
+$\{ \delta_i \}$ are the eigenvalues of $A$.
+
+If this system has a solution, then another change of coordinates gives us $x$ (as $x = Sy$).
+
+Note: Offhand, there is no reason to believe that computing $S^{-1}b$ is any easier than computing $A^{-1}b$. However, in the ideal case the eigenvectors of $A$ are orthogonal. This is true, for insteance, if $AA^T = A^TA$. In that case the columns of $S$ are orthogonal, and so we can take $S$ to be orthogonal (unitary, if complex). But then $S^{-1}=S^T$, and the problem of solving $Ax=b$ becomes very simple. 
+
+Unfortunately, the decomposition $A=S \Lambda S^{-1}$ is not always possible. 
+
+Worse, what do we do if $A$ is not square?
+
+\textbf{The answer is to work with $A^TA$ and $AA^T$.}
+
+Suppose $A$ is a $m \times n$ matrix. The previous discussion implies the following decompositions:
+\begin{description}
+    \item $A^TA=VDV^T$ \\ 
+        $V$ is $n \times n$ orthogonal, with eigenvectors of $A^TA$. \\
+        $D$ is $n \times n$ diagonal, with the (non-negative) eigenvalues of $A^TA$.
+    \item $AA^T = UD' U^T$ \\
+        $U$ is $m \times m$ orthogonal, with the eigenvectors of $AA^T$. \\
+        $D'$ is $m \times m$ diagonal, with the (non-negative) eigenvalues of $AA^T$.
+\end{description}
+
+It turns out that $D$ and $D'$ have the same non-zero diagonal entries (except that the order might be different). 
+
+Some further reasoning then yields the SVD decomposition (as $A = U \Sigma V^T)$.
+
+Recall $A = U \Sigma V^T, \Sigma = \begin{bmatrix}
+    \sigma_1 & & & & 0 \\
+    & \ddots & & & \\ 
+    & & \sigma_k & & \\
+    & & & \ddots & \\ 
+    0 & & & & 0
+\end{bmatrix}$
+
+\subsubsection*{Observations}
+
+\begin{itemize}
+    \item $\text{rank}(A) = \text{rank}(\Sigma) = k$
+    \item $\text{colspace}(A) = $span (first $k$ columns of $U$) \\
+        Note: these columns form an orthonormal basis for the colspace
+    \item $\text{nullspace}(A) = $span (last $n-k$ columns of $V$) \\
+        Note: these columns form an orthonormal basis for the null space
+    \item Each of $U$ and $V$ is an orthonormal change-of-basis matrix. We can therefore think of $\Sigma$ is a simple mapping between two different coordinate systems that amounts to dilation in each coordinate. 
+    
+    If we look at the effect on a unit circle, we get the picture in Fig.~\ref{fig:linear-2}.
+\end{itemize}
+
+\begin{figure}[h]
   \centering
-  \label{fig:linear-2}
-  \caption{SVD in more detail}
   \resizebox{\columnwidth}{!}{
     \input{figures/chap_02/02-svd.tikz}
   }
+  \caption{SVD in more detail}
+  \label{fig:linear-2}
 \end{figure}
+
+\underline{Observation (1) revisited}
+
+
 
 %%% Local Variables:
 %%% mode: latex

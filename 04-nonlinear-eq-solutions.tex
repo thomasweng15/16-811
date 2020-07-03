@@ -1,5 +1,11 @@
     \chapter{Solution of Nonlinear Equations}
-    
+    We would like to find the roots of equations of the form $f(x) = 0$
+    We will focus on the one-dimensional case (in which $f:[a, b] \rightarrow \mathbb{R}$)
+    In several dimensions one is often interested in solving several simultaneous equations.
+    This can be hard.
+    We will look at several iterative methods: Bisection, Regula Falsi, Secant Method, Newton's Method
+    Other methods include Fixed Point Iteration and various hybrid methods (see NRiC). 
+    Later we will discuss the special cases in which $f$ is a polynomial or a linear function in higher dimensions. 
     \subsection*{Applications}
     \begin{itemize}
         \item Intersection / collision detection
@@ -7,6 +13,17 @@
     \end{itemize}
     
     \section{Bisection}
+    \textbf{Idea:}
+    \begin{description}
+        Find two points $a_0, b_0$ such that $f(a_0) * f(b_0)$ have opposite signs. 
+        If $f$ is well-behaved, then it will have a root in between $a_0 * b_0$. 
+        Now, halve the interval $[a_0, b_0]$ while still bracketing the root, and repeat
+    \end{description}
+    
+    \textbf{Formally:}
+    Start with $f(a_0)f(b_0) \leq 0$
+    For $n \eq$
+    
     \begin{figure}
       \centering
       \begin{subfigure}[b]{0.3\textwidth}
