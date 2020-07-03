@@ -1,0 +1,30 @@
+\begin{tikzpicture}[scale=2]
+  \tkzInit[
+    xmin=-3.5,xmax=1.5,
+    ymin=-3,ymax=3
+  ]
+  \tkzFct[domain=-3:1]{exp(\x)-1}
+  \tkzDefPointByFct(1) \tkzGetPoint{B} 
+  \tkzDefPointByFct(-3) \tkzGetPoint{A} 
+  \tkzDefPointByFct(-1) \tkzGetPoint{F} 
+  \tkzDefPoint(-3.5,0){X'}
+  \tkzDefPoint(0,0){O}
+  \tkzDefPoint(1.5,0){X}
+  \tkzDefPointBy[projection=onto O--X](A) \tkzGetPoint{A'}
+  \tkzDefPointBy[projection=onto O--X](B) \tkzGetPoint{B'}
+  \tkzDrawSegment[dashed](A,B)
+  \tkzInterLL(A,B)(O,X) \tkzGetPoint{w}
+  \tkzDrawSegment[dashed](A,A')
+  \tkzLabelSegment(A,A'){$a_n$}
+  \tkzDrawSegment[dashed](B,B')
+  \tkzDrawSegment[->](X',X)
+  \tkzLabelSegment(B,B'){$b_n$}
+  \tkzLabelPoint(A){$(a_n,f(a_n))$}
+  \tkzLabelPoint(B){$(b_n,f(b_n))$}
+  \tkzLabelPoint(w){$w$}
+  \tkzLabelPoint(X){$x$}
+  \tkzDrawPoints(A,B,O,w,A',B')
+  \node[pin=330:{actual root}] at (O){};
+  \node[pin=120:{new estimate}] at (w){};
+  \node[pin=330:{$f(x)$}] at (F){};
+\end{tikzpicture}

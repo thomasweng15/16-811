@@ -1,0 +1,15 @@
+\begin{tikzpicture}
+\begin{axis}[
+axis y line=center,
+axis x line=middle,
+scale only axis,
+axis equal,
+xmax=2,xmin=-2,
+ymin=-5,ymax=5,
+width=5cm,
+samples=100,
+anchor=center,
+]
+\addplot[thick,domain=-2:2,mark=none]{x^3-x-1};
+\end{axis}
+\end{tikzpicture}

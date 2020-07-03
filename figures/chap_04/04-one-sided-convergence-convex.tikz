@@ -1,0 +1,30 @@
+\begin{tikzpicture}[scale=2]
+  \tkzInit[
+    xmin=-3.5,xmax=1.5,
+    ymin=-3,ymax=3
+  ]
+  \tkzFct[domain=-3:1]{exp(\x)-1}
+  \tkzDefPointByFct(1) \tkzGetPoint{B} 
+  \tkzDefPointByFct(-3) \tkzGetPoint{A} 
+  \tkzDefPoint(-3.5,0){X'}
+  \tkzDefPoint(0,0){O}
+  \tkzDefPoint(1.5,0){X}
+  \tkzDrawSegment[->](X',X)
+  \tkzLabelPoint[above](X){$x$}
+  \foreach \i in {0,...,2}
+  {
+    \tkzDrawSegment[dashed](A,B)
+    \tkzInterLL(A,B)(O,X) \tkzGetPoint{W}
+    \tkzDefPointBy[projection=onto O--X](A) \tkzGetPoint{A'}
+    \tkzDrawSegment[dashed](A,A')
+    \tkzGetPointCoord(W){w}
+    \tkzDefPointByFct(\wx) \tkzGetPoint{A}
+    \tkzLabelPoint(A'){$a_\i$}
+  }
+
+    \tkzDefPointBy[projection=onto O--X](B) \tkzGetPoint{B'}
+  \tkzDrawSegment[dashed](B,B')
+  \tkzLabelPoint(B'){$b_0, b_1, b_2, b_3$}
+  \tkzDrawPoints(O)
+  \tkzLabelPoint(O){root}
+\end{tikzpicture}

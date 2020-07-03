@@ -1,0 +1,19 @@
+\begin{tikzpicture}
+\begin{axis}[
+axis y line=center,
+axis x line=middle,
+scale only axis,
+axis equal,
+xmax=3,xmin=-3,
+ymin=-4,ymax=4,
+ticks=none,
+width=5cm,
+samples=100,
+anchor=center,
+]
+\addplot[thick,domain=-5:0.9,mark=none]{-0.2*x/(1-x) -1};
+\addplot[thick,domain=1.1:5,mark=none]{-x/(1-x) -1};
+\addplot[thick,mark=none,dashed] coordinates {(1, -4) (1, 4)};
+% \addplot[thick,mark=none,dashed] {-1};
+\end{axis}
+\end{tikzpicture}

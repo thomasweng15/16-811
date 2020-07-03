@@ -1,0 +1,22 @@
+\begin{tikzpicture}
+\begin{axis}[
+axis y line=none,
+axis x line=middle,
+scale only axis,
+axis equal,
+ymin=-1,ymax=1,
+xmin=-10,xmax=10,
+ticks=none,
+width=5cm,
+samples=100,
+anchor=center,
+]
+\addplot[thick,domain=-7:-3,mark=none]{(x+5)^2-1};
+\addplot[thick,domain=-2:2,mark=none]{(x)^2};
+\addplot[thick,domain=3:7,mark=none]{(x-5)^2+1};
+
+\node[align=center] at (axis cs:0,-2) {one\\double};
+\node at (axis cs:-5,-2) {two};
+\node at (axis cs:5,-2) {none};
+\end{axis}
+\end{tikzpicture}

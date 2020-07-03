@@ -10,7 +10,7 @@ $$
 $$
 \end{theorem}
 
-Of course, this theorem doesn't tell us how to construct $p(x)$, or even what the degree of $p(x)$ is. \\
+Of course, this theorem doesn't tell us how to construct $p(x)$, or even what the degree of $p(x)$ is. 
 
 We will look at the construction of interpolating polynomials, at error estimates, and some difficulties.
 In practice, one patches together series of low-order polynomial approximations, such as in splines and Bezier patches.
@@ -23,13 +23,15 @@ In practice, one patches together series of low-order polynomial approximations,
     \item Generating robot trajectories that pass through given set points (inverse kinematics). 
 \end{itemize}
 
+
 \section{Polynomial Forms}
 
 \textbf{Power form:}
 $$
 p(x) = a_0 + a_1 x + a_2 x^2 + \dots + a_n x^n
 $$
-where $a_n \neq 0$ and the polynomial is degree $n$. Numerical round-off can lead to a loss of significance for $x$ no near zero. \\
+
+where $a_n \neq 0$ and the polynomial is degree $n$. Numerical round-off can lead to a loss of significance for $x$ no near zero. 
 
 \textbf{Shifted power form:}
 $$
@@ -39,42 +41,42 @@ $$
 Taylor expansion for $p(x)$ about $c$ and $a_i = \frac{p^{(i)}(c)}{i!}$
 
 \textbf{Newton form:}
-\begin{align}
+\begin{align*}
 p(x) = a_0 &+ a_1 (x-c_1) \\
            &+ a_2 (x-c_1)(x-c_2) \\
            &\,+ \\
            &\,\, \vdots \\
            &\,+ \\
            &a_n (x-c_1)(x-c_2)\dots(x-c_n)
-\end{align}
+\end{align*}
 $n+\frac{n(n+1)}{2}$ adds; $\frac{n(n+1)}{2}$ multiplies.
 
 \textbf{Nested Newton form:}
-$$
-p(x) = a_0 + (x-c_1)\left\{a_1 + (x-c_2)\left[a_2 + \dots + (x-c_{n-1})(a_{n-1}+(x-c_n)a_n)\right]\right\}
-$$
-$2n$ adds; $n$ multiplies. \\
+\begin{equation*}
+    p(x) = a_0 + (x-c_1)\left\{a_1 + (x-c_2)\left[a_2 + \dots + (x-c_{n-1})(a_{n-1}+(x-c_n)a_n)\right]\right\}
+\end{equation*}
+$2n$ adds; $n$ multiplies. 
 
-It is easy to write a recursive algorithm to evaluate $p(x)$ in nested Newton form. To evaluate $p(x)$ given $x$, $a_0, \dots, a_n$, $c_1, \dots, c_n$: \\
+It is easy to write a recursive algorithm to evaluate $p(x)$ in nested Newton form. To evaluate $p(x)$ given $x$, $a_0, \dots, a_n$, $c_1, \dots, c_n$: 
 
 \quad \textsf{poly\_eval}($x$; $a_0, \dots, a_n$; $c_1, \dots, c_n$)
 
-\qquad \qquad $a_0 + (x-c_1)\cdot $\textsf{poly\_eval}($x$; $a_1, \dots, a_n$; $c_2, \dots, c_n$)
+\qquad \qquad $a_0 + (x-c_1)\;\cdot\; $\textsf{poly\_eval}($x$; $a_1, \dots, a_n$; $c_2, \dots, c_n$)
 
 \section{Polynomial Interpolation}
 
-Suppose $f: [a,b] \rightarrow \mathbb{R}$ \\
+Suppose $f: [a,b] \rightarrow \mathbb{R}$ 
 
-And suppose $x_0, x_1, \dots , x_n$ are $n+1$ distinct points in $[a,b]$. \\
+And suppose $x_0, x_1, \dots , x_n$ are $n+1$ distinct points in $[a,b]$. 
 
-\noindent We want to construct a polynomial of degree $n$ or less that interpolates $f(x)$ at the points $\{x_i\}$. 
+We want to construct a polynomial of degree $n$ or less that interpolates $f(x)$ at the points $\{x_i\}$. 
 That is, we want a polynomial $p(x)$ such at
 
 \begin{equation*}
     p(x_i) = f(x_i) \qquad i = 1, \dots, n.
 \end{equation*}
 
-There exists a unique such polynomial. We will see it shortly. \\
+There exists a unique such polynomial. We will see it shortly. 
 
 To see uniqueness, suppose $p$ and $q$ are each polynomials of degree at most $n$ that agree at the $\{x_i\}$. 
 Then $p-q$ is a polynomial of degree at most $n$ that vanishes at the $\{x_i\}$. 
@@ -83,9 +85,9 @@ Therefore, by the Fundamental Theorem of Algebra
 \begin{equation*}
     (p-q)(x) = c \prod_{i=0}^n (x-x_i)
 \end{equation*}
-where $c$ is some real number. The left hand side has degree at most $n$. The right hand side has degree exactly $n+1$, unless $c=0$. So, $c=0$, and then $p=q$, meaning that $p$ is unique. \\
+where $c$ is some real number. The left hand side has degree at most $n$. The right hand side has degree exactly $n+1$, unless $c=0$. So, $c=0$, and then $p=q$, meaning that $p$ is unique. 
 
-Uniqueness tells us that the different ways of writing the interpolating polynomial $p(x)$ are really the same, and must therefore differ primarily on numerical grounds (e.g. compactness, stability, ...). \\
+Uniqueness tells us that the different ways of writing the interpolating polynomial $p(x)$ are really the same, and must therefore differ primarily on numerical grounds (e.g. compactness, stability, ...).
 
 \subsection{Lagrange Form}
 
@@ -94,6 +96,7 @@ The \underline{Lagrange Form} is a straightforward way of constructing the inter
 \begin{equation*}
     p(x) = a_0 l_0 (x) + a_1 l_1 (x) + \dots + a_n l_n (x)
 \end{equation*}
+
 where each $l_i(x)$ is a polynomial of degree $n$ that satisfies
 \begin{equation*}
     l_i(x_k) = \begin{cases}
@@ -101,14 +104,14 @@ where each $l_i(x)$ is a polynomial of degree $n$ that satisfies
       0 \quad \mathrm{if} \quad i \neq k
     \end{cases}  
 \end{equation*}
-$i=0,\dots,n$ and $a_i=f(x_i)$. \\
+$i=0,\dots,n$ and $a_i=f(x_i)$. 
 
 In other words,
 \begin{equation*}
     l_i(x) = \prod_{\substack{k=0 \\ k\neq i}}^n \frac{x-x_k}{x_i-x_k}
-\end{equation*}
+\end{equation*} 
 
-\underline{Ex} Suppose we start with a polynomial, say 
+\underline{Example:} Suppose we start with a polynomial, say 
 \begin{equation*}
     f(x) = (x-1)^2
 \end{equation*}
@@ -120,14 +123,14 @@ And suppose we have two values, at $x_0=0$ and $x_1 = 1$:
         f(1)=0 \quad \Rightarrow \quad a_1 = 0
     \end{split}
 \end{equation*}
-Now $p(x) = a_0 l_0 (x) + a_1 l_1 (x)$ \\
+Now $p(x) = a_0 l_0 (x) + a_1 l_1 (x)$ 
 
 Since $a_1 = 0$, we only care about $l_0(x)$.
 
 \begin{equation*}
     l_0 (x) = \frac{x-x_1}{x_0-x_1} = \frac{x-1}{0-1} = -x + 1
 \end{equation*}
-so $p(x) = -x + 1$, which is a line. \\
+so $p(x) = -x + 1$, which is a line. 
 
 This polynomial interpolates $f(x)$, but not very well, as one would imagine.
 
@@ -140,7 +143,90 @@ This polynomial interpolates $f(x)$, but not very well, as one would imagine.
 \end{figure}
 So, let's add the value of $f$ at a third point, say $x=-1$. 
 
+$f(-1)=4$, so 
+
+\begin{align*}
+        x_0=0& \qquad a_0 = 1 \\
+        x_1=1& \qquad  a_1 = 0 \\
+        x_2=-1& \qquad  a_2 = 4 \\
+\end{align*}
+\begin{align*}
+    l_0(x) &= \quad \frac{x-x_1}{x_0-x_1} \cdot \frac{x-x_2}{x_0-x_2} \quad=\quad -(x-1)(x+1) \\
+    l_1(x) &= \quad \frac{x-x_0}{x_1-x_0} \cdot \frac{x-x_2}{x_1-x_2} \quad=\quad \text{we don't care} \\
+    l_2(x) &= \quad \frac{x-x_0}{x_2-x_0} \cdot \frac{x-x_1}{x_2-x_1} \quad=\quad \frac{1}{2}x(x-1)
+\end{align*}
+Now, \begin{align*}
+    p(x) &= a_0 l_0(x) + a_1 l_1(x) + a_2 l_2(x) \\
+         &= -(x-1)(x+1) + 2x(x-1) \\
+         &= \;\;\;(x-1) \left[2x-(x+1)\right] \\
+         &= \;\;\;(x-1)(x-1) \\
+         &= \;\;\;(x-1)^2
+\end{align*}
+So, as one would hope, this approximation is exact. \\
+
+\noindent \underline{Comments}
+\begin{itemize}
+ \renewcommand{\labelitemi}{$\qedsymbol$} 
+ \item  The goodness of an approximation depends on the number of approximating points and also their location. 
+ 
+        We will look at error estimates.
+ \item One problem with the Lagrange form of the interpolating polynomial is that we need 
+        \begin{align*}
+                  &2(n+1) \quad \text{mul/div} \\
+            \& \; &2n+1 \quad \quad \text{add/sub}
+        \end{align*}
+        to evaluate $p(x)$ at a given point $x$, \underline{even after} all the denominators have been calculated once and for all and divided into the $a_i$ values. 
+        
+        If we could write the interpolating polynomial in nested form we could get away with half that many multiplication operations. ---We won't worry about this. 
+ \item Another problem is that in practice, one may be uncertain as to how many interpolation points to use. 
+       So, one may want to increase them over time and see whether the approximation gets better. 
+       In doing so, one would like to use the old approximation. 
+       It isn't clear how to do that easily with the Lagrange form. 
+       
+       We will look at this. 
+\end{itemize}
+
 \subsection{Divided Differences}
+
+This is basically a way of writing the interpolating polynomial in Newton form. 
+
+Let $p_n(x)$ denote the interpolating polynomial of degree $n$ (or less), that interpolates $f(x)$ at $x_0, \dots, x_n$. 
+
+Suppose we write $p_n(x)$ as
+
+\begin{equation*}
+    p_n(x) = A_0 + A_1(x-x_0) + A_2(x-x_0)(x-x_1)+ \dots + A_n(x-x_0)\dots(x-x_{n-1})
+\end{equation*}
+
+\vspace{-.4cm} 
+\begin{figure}[H]
+    \hspace{3.2cm}
+    \input{figures/chap_03/arrow.tikz}
+    \label{fig:polynomial-2}
+\end{figure}
+\vspace{-.7cm} 
+\noindent Now notice that this last term vanishes at $x_0, \dots, x_{n-1}$. Therefore, the previous $n$ terms must comprise the interpolating polynomial of degree $n-1$ (or less) that agrees with $f(x)$ at $x_0, \dots, x_{n-1}$. In other words,
+
+\begin{equation*}
+    p_{n-1}(x) = A_0 + A_1(x-x_0) + \dots + A_{n-1}(x-x_0)\dots(x-x_{n-2})
+\end{equation*}
+
+with same $\left\{A_i\right\}$ coefficients as for $p_n(x)$. 
+
+In short,
+
+\begin{equation*}
+    p_n(x) = p_{n-1}(x) + A_n(x-x_0)\dots(x-x_{n-1})
+\end{equation*}
+
+So, we can build $p_n(x)$ from $p_{n-1}(x)$. \\
+ 
+\underline{Now, what are the $\left\{A_i\right\}$?} 
+
+Suppose we define $f\left[x_i,x_{i+1},\dots,x_m\right]$ to be the leading coefficient of the polynomial of degree $m-i$ (or less) that agrees with $f(x)$ at the distinct points $x_i, \dots, x_m$.
+
+% on page 11
+
 
 \subsection{Error of the interpolating polynomial}
 

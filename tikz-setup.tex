@@ -1,0 +1,17 @@
+\usepackage{tikz, pgfplots,tkz-euclide, tkz-fct} % tikz and pgfplots
+
+
+\pgfplotsset{compat=1.11} % we dont have to use axis cs to merge tikz marking with pgfplots
+
+\tikzset{insert node/.style args={#1 at #2}{
+    postaction=decorate,
+    decoration={
+      markings,
+      mark= at position #2
+        with
+        {
+         #1
+        }
+    }
+  }
+}

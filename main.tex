@@ -15,9 +15,10 @@
 
 \usepackage[utf8]{inputenc}
 
-\usepackage{graphicx}  % \includegraphics
+\usepackage{graphicx, caption, subcaption}  % \includegraphics, \subfigures
 \usepackage{tikz, pgfplots} % tikz and pgfplots
-\usepackage{tkz-euclide} % helpful macros for plotting tikz
+\pgfplotsset{compat=1.11}
+\usepackage{tkz-euclide,tkz-fct} % helpful macros for plotting tikz
 \usepackage{amsmath, amssymb, bm}
 \usepackage{amsthm}
 \usepackage{mathtools}
@@ -26,6 +27,8 @@
 \usepackage{float}
 \usepackage{xcolor}
 \usepackage{enumitem}
+
+\include{tikz-setup}
 
 \newcommand{\fig}[1]{Fig.~\ref{#1}}
 \newcommand{\tbl}[1]{Table~\ref{#1}}
@@ -95,7 +98,7 @@ Anirudh Vemula \\
 Ratnesh Madaan \\
 Akash Sharma \\
 Alex Spitzer \\
-Ankit Bhatia
+Ankit Bhatia 
 }
 
 \begin{document}
