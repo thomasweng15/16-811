@@ -14,16 +14,28 @@
     
     \section{Bisection}
     \textbf{Idea:}
-    \begin{description}
-        Find two points $a_0, b_0$ such that $f(a_0) * f(b_0)$ have opposite signs. 
-        If $f$ is well-behaved, then it will have a root in between $a_0 * b_0$. 
-        Now, halve the interval $[a_0, b_0]$ while still bracketing the root, and repeat
-    \end{description}
+        \begin{description}
+            \item Find two points $a_0, b_0$ such that $f(a_0) * f(b_0)$ have opposite signs. 
+            If $f$ is well-behaved, then it will have a root in between $a_0 * b_0$. 
+            Now, halve the interval $[a_0, b_0]$ while still bracketing the root, and repeat
+        \end{description}
     
     \textbf{Formally:}
     Start with $f(a_0)f(b_0) \leq 0$
-    For $n \eq$
+    For $n = 0, 1, 2, ...$ until satisfied do:
+    $c = \frac{1}{2}(a_n + b_n)$
+    If $f(a_n)f(c_n) \leq 0$, then set $a_{n+1} = a_n; b_{n+1} = c$
+    else set $a_{n+1} = c; b_{n+1} = b_n$
     
+    
+    \noindent \underline{Comments}
+    \begin{itemize}
+        \item The first part of the idea is critical to many root-finding techniques namely to find an interval that brackets a root of $f$. 
+        This can be difficult.
+        \item Bisection can be slow, but it is simple and robust. 
+        It is therefore sometimes used as a "fail safe" backup for more complicated algorithms. 
+    \end{itemize}
+
     \begin{figure}
       \centering
       \begin{subfigure}[b]{0.3\textwidth}
@@ -47,12 +59,43 @@
       \label{fig:difficult-root-finding}
     \end{figure}
 
+\newpage
+
+    \subsubsection{Note:}
+        \begin{description}
+            \item The pseudo-code
+            \item "If $f(a_n)f(c)n) \leq 0$..."
+            \item Is just shorthand for
+            \item "If $f(a_n)$ and $f(c_n)$ have opposite sign (or one is zero)..."
+            \item Multiplication is probably not the best way to implement this test.
+        \end{description}
+    
     \begin{figure}
       \centering
       \input{figures/chap_04/04-bisection_example.tikz}
       \label{fig:bisection_example}
     \end{figure}
-
+    \subsubsection{Note:}
+        \begin{description}
+            \item Since $f$ is a cubic it has either one zero or three zeros (real zeros).
+            A quick local extrema computation shows that it can't have three zeros. 
+            So, we see that there must be a single zero, initially bracketed by $x = 1, x = 2$.
+            Let's see if we can isolate their zero a bit more.
+        \end{description}
+            
+    In each step of the bisection method the length of the bracketing interval is halved. 
+    Hence each step produces one more correct binary gigt (i.e., bit) in the approximation for the root.
+    
+    In other words, the max error $\epsilon_n$ satisfies
+    \begin{align}
+        \frac{\epsilon_{n+1}}{\epsilon_n} = \frac{1}{2}
+    \end{align}
+    
+    This is known as linear convergence (since $\epsilon_{n+1}$ depends linearly on $\epsilon_n$
+    
+    Locally, it often makes sense to assume that a function is linear (say for analytic or smooth functions).
+    
+    This idea can be used to improve convergence.
     
     \section{Regula Falsi}
     \begin{figure}

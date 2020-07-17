@@ -205,7 +205,7 @@ Suppose we write $p_n(x)$ as
     \label{fig:polynomial-2}
 \end{figure}
 \vspace{-.7cm} 
-\noindent Now notice that this last term vanishes at $x_0, \dots, x_{n-1}$. Therefore, the previous $n$ terms must comprise the interpolating polynomial of degree $n-1$ (or less) that agrees with $f(x)$ at $x_0, \dots, x_{n-1}$. In other words,
+\noindent Now notice that this last term vanishes at $x_0, \dots, x_{n-1}$. Therefore, the previous $n$ terms must comprise the interpolating polynomial of degree $n-1$ (or less) that agrees with $f(x)$ at $x_0, \dots, x_{n-1}$. In other words, \brady{check arrow spacing after final formatting}
 
 \begin{equation*}
     p_{n-1}(x) = A_0 + A_1(x-x_0) + \dots + A_{n-1}(x-x_0)\dots(x-x_{n-2})
@@ -225,7 +225,28 @@ So, we can build $p_n(x)$ from $p_{n-1}(x)$. \\
 
 Suppose we define $f\left[x_i,x_{i+1},\dots,x_m\right]$ to be the leading coefficient of the polynomial of degree $m-i$ (or less) that agrees with $f(x)$ at the distinct points $x_i, \dots, x_m$.
 
-% on page 11
+Then by construction, $A_k = f[x_0, \dots , x_k]$
+\vspace{-.2cm} 
+\begin{figure}[H]
+    \hspace{5.9cm}
+    \input{figures/chap_03/arrowUp.tikz}
+    \label{fig:polynomial-3}
+\end{figure}
+\vspace{-.5cm} 
+{
+\hspace{4.2cm}
+called the \underline{k\textsuperscript{th} divided difference} of $f$ at the points $x_0, \dots, x_k$
+}
+
+Observe that $f[x_0] = f(x_0)$, and that $f[x_0,x_1] = \frac{f(x_0)-f(x_1}{x_0-x_1}$
+
+More generally, we will see that 
+\begin{equation*}
+    f[x_0, \dots, x_k] = \frac{f[x_0, \dots, x_{k-1}] - f[x_1, \dots, x_k]}{x_0 - x_k}
+\end{equation*}
+
+
+
 
 
 \subsection{Error of the interpolating polynomial}
